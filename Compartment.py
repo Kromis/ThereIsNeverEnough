@@ -1,9 +1,9 @@
 class Compartment:
-    MAX_HP = 100
-    MIN_HP = 0
-    REPAIRED_HP = 50
-    def __init__(self, decrease=5, increase=10):
+    def __init__(self, decrease=5, increase=10, repairedHp=50, maxHp=100, minHp=0):
         self.active = True
+        self.MAX_HP = maxHp
+        self.MIN_HP = minHp
+        self.REPAIRED_HP = repairedHp
         self.hp = self.MAX_HP
         self.selected = False
         self.DECREASE = decrease

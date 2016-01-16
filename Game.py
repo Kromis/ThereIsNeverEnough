@@ -3,15 +3,13 @@ from CompartmentPackages import *
 class Game:
     def __init__(self):
         self.activeRegions = {}
-        self.allPackages = []
+        self.allPackages = {}
         self.packageSelections = [ None, None, None ]
 
-    def addPackage(self):
-        package = CompartmentPackage()
-        # insert other details such as block x,y
-        self.allPackages.Add(package)
-        pass
+    def addPackage(self, name, compType, xy):
+        package = CompartmentPackage(compType, xy)
+        self.allPackages[name] = package
     
     def initializePackages(self):
-        weaponCompartment = ("Weapon")
+        addPackage("Weapon", "weapon", (x, y))
                 

@@ -1,9 +1,13 @@
 from Compartment import *
 
 class CompartmentPackage:
-    def __init__(self):
+    def __init__(self, compType, xy):
+        self.type = compType
         self.GUI = None #DrawObject
         self.compartment = Compartment()
+
+    def typeWeapon(self):
+        pass
 
     def update(self, selected):
         self.compartment.update()
