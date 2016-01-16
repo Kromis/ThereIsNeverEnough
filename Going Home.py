@@ -2,6 +2,7 @@ import os, sys
 import pygame
 import resources
 from Background import Background
+from Game import *
 
 from pygame.locals import *
 
@@ -18,6 +19,8 @@ class GoingHome:
         self.background = Background(self.screen)
 
         self.gameState = "GAME"
+        # move this later into the loop
+        self.game = Game()
     
     def game_loop(self):
         while resources.main_loop_running:
@@ -27,6 +30,8 @@ class GoingHome:
                 for event in pygame.event.get():
                     if (event.type == pygame.QUIT):
                         resources.main_loop_running = False
+
+                self.game.update()
                 
                 self.background.cloud_update()
                 self.background.draw()
