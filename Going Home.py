@@ -2,6 +2,7 @@ import os, sys
 import pygame
 import resources
 from Background import Background
+from Draw_Comp import Draw_Comp
 
 from pygame.locals import *
 
@@ -10,7 +11,7 @@ class GoingHome:
         pygame.init()
         self.width = resources.width
         self.height = resources.height
-        self.screen = pygame.display.set_mode((self.width, self.height), pygame.RESIZABLE)
+        self.screen = pygame.display.set_mode((self.width, self.height))
 
         for image in resources.all_sprites.values():
             image.convert_alpha()
@@ -30,6 +31,7 @@ class GoingHome:
                 
                 self.background.cloud_update()
                 self.background.draw()
+                Draw_Comp("cannon.png", self.screen, (500, 200)).draw()
 
 
             pygame.display.update()

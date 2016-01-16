@@ -11,8 +11,10 @@ class CompartmentPackage:
 
     def update(self, selected):
         self.compartment.update()
-        #self.GUI.update()
 
+    def draw(self):
+        self.GUI.draw()
+    
     # Getters
     def selected(self):
         return self.compartment.selected
