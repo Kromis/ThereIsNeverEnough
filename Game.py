@@ -5,11 +5,16 @@ class Game:
         self.activeRegions = {}
         self.allPackages = {}
         self.packageSelections = [ None, None, None ]
+        self.day = True
 
-    def addPackage(self, name, compType, xy):
-        package = CompartmentPackage(compType, xy)
+    def addPackage(self, name, compType, position):
+        package = CompartmentPackage(compType, position)
         self.allPackages[name] = package
     
     def initializePackages(self):
-        addPackage("Weapon", "weapon", (x, y))
+        position = (0, 0)
+        addPackage("Weapon", "weapon", position)
                 
+    def update(self):
+        for p in allPackages:
+            allPackages[p].draw()
