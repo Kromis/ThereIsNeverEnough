@@ -13,7 +13,7 @@ class Sprite_Sheet:
         for root, dirs, files in os.walk(self.folder):
            for file_name in files:
                if file_name[-3:] == "png":
-                   self.all[file_name] = pygame.image.load(os.path.join(self.folder, file_name))
+                   self.all_sprites[file_name] = pygame.image.load(os.path.join(self.folder, file_name))
         return self.all_sprites
 
 ##Seems like we probably don't need animations for this class
