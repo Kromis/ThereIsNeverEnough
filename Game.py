@@ -13,8 +13,6 @@ class Game:
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
-        self.packageSelections = [ None, None, None ]
-        self.attackablePackageNames = {}
         self.allShields = []
         self.messages = []
 
@@ -26,7 +24,6 @@ class Game:
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
-
         
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
@@ -65,13 +62,8 @@ class Game:
             if y > region[1][1]:
                 continue
             name = self.activeRegions[region]
-            if name not in self.packageSelections:
-                print(name+" selected :)")
-                self.packageSelections.insert(0, name)
-                removed = self.packageSelections.pop()
-                if removed != None:
-                    self.allPackages[removed].deselect()
-                self.allPackages[name].select()
+            print(name+" selected :)")
+            self.allPackages[name].compartment.toggleSelect()
             break
             
     def update(self):
@@ -80,12 +72,8 @@ class Game:
         self.console.get_message(self.messages)
 
         for name in self.allPackages:            
-            active = self.allPackages[name].update(name in self.packageSelections)
-            if active:
-                self.attackablePackageNames[name] = True
-            elif name in self.attackablePackageNames:
-                self.attackablePackageNames.pop(name, None)            
-            
+            self.allPackages[name].update(name)
+
         self.monsterList.update()
 
         # draw stuff
@@ -101,19 +89,20 @@ class Game:
 
 
     def enemyAttack(self, dmg):
-        if len(self.attackablePackageNames) == 0:
-            self.affectShipHp(-dmg)
-            print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
-        else:
-            for shieldName in self.allShields:
-                if shieldName in self.attackablePackageNames:
-                    self.allPackages[shieldName].attacked(dmg)
-                    return
-            name = random.choice(list(self.attackablePackageNames.keys()))
-            self.allPackages[name].attacked(dmg)
-            self.messages.append(["Monster", name, dmg])
-            print("Compartment '{}' is attacked!".format(name))
 
+        for shieldName in self.allShields:
+            if self.allPackages[shieldName].compartment.active:
+                self.allPackages[shieldName].attacked(dmg)
+                return
+         
+        print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
+        self.affectShipHp(-dmg)
+
+         
+        for name in self.allPackages:
+            dmg += random.randint(-5, 5)
+            self.allPackages[name].attacked(dmg)
+            
     def affectShipHp(self, value):
         self.shipHp += value
         self.shipHp = max(self.shipHp, 0)

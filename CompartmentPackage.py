@@ -7,7 +7,7 @@ class CompartmentPackage:
         self.type = compType
         self.GUI = None #DrawObject
 
-        self.compartment = Compartment()
+        self.compartment = Compartment(compType)
         self.screen = screen
 
 
