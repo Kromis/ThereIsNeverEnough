@@ -16,7 +16,7 @@ class Time:
 
     def update(self):
         if (pygame.time.get_ticks() > self.next_update):
-        self.increment_minute()
+            self.increment_minute()
             self.next_update = pygame.time.get_ticks() + Time.MS_PER_MINUTE
 
         

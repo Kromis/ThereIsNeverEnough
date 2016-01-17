@@ -21,7 +21,7 @@ class GoingHome:
 
         self.gameState = "GAME"
         # move this later into the loop
-        self.game = Game()
+        self.game = Game(self.screen)
     
     def game_loop(self):
         while resources.main_loop_running:

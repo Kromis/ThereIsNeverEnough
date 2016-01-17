@@ -1,4 +1,5 @@
 from Compartment import *
+from Draw_Comp import *
 
 class CompartmentPackage:
     def __init__(self, screen, compType, position):
@@ -6,7 +7,7 @@ class CompartmentPackage:
         self.compartment = Compartment()
         if compType == "weapon":
             # bind comp.use() to attacking enemy
-            self.GUI = Draw_Comp(screen, "cannon.png", position)
+            self.GUI = Draw_Comp("cannon.png", screen, position)
 
     def update(self, selected):
         self.compartment.update()
