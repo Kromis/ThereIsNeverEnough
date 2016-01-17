@@ -26,7 +26,7 @@ class Background:
         self.font_size = 100
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
         
-        self.sidebar = [self.clock, self.power, self.health]  
+        self.sidebar = [self.clock, self.health, self.power]  
         self.cloud_list = self.clouds()
 
     def clouds(self):
