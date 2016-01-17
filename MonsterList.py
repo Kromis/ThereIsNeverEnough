@@ -20,6 +20,9 @@ class MonsterList:
         if len(self.list) < MonsterList.MAX_MONSTERS:
             self.list.insert(0, monster)
             print("NEW MONSTER ENCOUNTER")
+            #update monster positions
+            for v in range(len(self.list)):
+                self.list[v].newPos = (resources.width-350, resources.height-150-(100*v))
 
     def update(self):
         self.randomEncounter()

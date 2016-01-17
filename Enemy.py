@@ -2,11 +2,10 @@ import random
 import resources
 
 class Enemy:
-
     DEFAULT_HEALTH = 300
     DEFAULT_DAMAGE = 20
     
-    def __init__(self, delay=30):
+    def __init__(self, delay=20):
         self.x = 0
         self.y = 0
         self.hp = Enemy.DEFAULT_HEALTH
@@ -16,7 +15,22 @@ class Enemy:
         self.type = ''
         self.alive = True
 
+        self.screen = resources.screen
+        self.sprite = resources.all_sprites["tentacle.png"]
+        self.position = (resources.width-350, resources.height-200)
+        self.newPos = self.position
+        self.SHIFT = (2,5)
+        
     def update(self):
+        #gradually shift tentacles
+        x = self.position[0]
+        y = self.position[1]
+        if self.newPos[0] > self.position[0]:
+            x += self.SHIFT[0]
+        if self.newPos[1] < self.position[1]:
+            y -= self.SHIFT[1]
+        self.position = (x, y)
+        
         if (self.hp <= 0):
             self.alive = False
             #print('Dead')
@@ -28,7 +42,7 @@ class Enemy:
         return False
 
     def draw(self):
-        pass
+        self.screen.blit(self.sprite, self.position)
         
     def attack(self):
         damage = random.randint(10, 15)
@@ -36,7 +50,15 @@ class Enemy:
 
     def take_damage(self, damage):
         self.hp -= damage
-        return not self.is_dead()
+        print(damage)
+        self.newPos = (resources.width-(350*self.hpPercentage()), self.newPos[1])
+        self.hp = max(self.hp, 0)
+        if self.hp == 0:
+            self.alive = False
+        return self.alive
 
     def is_dead(self):
         return not self.alive
+
+    def hpPercentage(self):
+        return self.hp/Enemy.DEFAULT_HEALTH
