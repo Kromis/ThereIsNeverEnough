@@ -30,4 +30,5 @@ class Draw_Comp:
         
 
     def get_corners(self):
-        return (self.position, (self.position[0] + 100, self.position[1] + 100))
+        glowOffset = 25
+        return ((self.position[0] + glowOffset, self.position[1] + glowOffset), (self.position[0] + glowOffset + 100, self.position[1] + glowOffset + 100))

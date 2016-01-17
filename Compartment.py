@@ -2,7 +2,7 @@ import random
 import resources
 
 class Compartment:
-    def __init__(self, decrease=0.2, increase=1, repairedHp=50, maxHp=100, minHp=0):
+    def __init__(self, decrease=0.2, increase=1, repairedHp=25, maxHp=100, minHp=0):
         self.MAX_CANNON_COOLDOWN = 1
         self.FIRING_HP_DECREASE = 5
         self.cannonCooldown = 0
