@@ -35,8 +35,10 @@ class Console:
                                 self.message = self.time + self.message[0] + " has attacked " + self.message[1] + " for " + str(self.event)
                         
                         if type(self.event) == str:
-                                if event == "Missed":
+                                if self.event == "Missed":
                                         self.message = self.time + self.message[0] + " missed."
+                                if self.event == "Damaged" or self.event == "Flavor":
+                                        self.message = self.time + self.message[3]
 
                         self.message_list.append(self.message)
                         

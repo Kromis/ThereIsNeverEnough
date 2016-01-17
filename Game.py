@@ -1,4 +1,5 @@
 import pygame
+import random
 from Time import Time
 from MonsterList import MonsterList
 from CompartmentPackage import *
@@ -101,8 +102,11 @@ class Game:
     def enemyAttack(self, dmg):
         if len(self.attackablePackageNames) == 0:
             self.affectShipHp(-dmg)
+            self.text = "Your ship is attacked! Current healht"  + str(self.shipHp)
+            self.messages.append(["None", "None", "Damaged", self.text])
+##	    status_text = "Your ship is attacked! Current health left: " + str(self.shipHp)
+##	    self.messages.append(["None", "None", "Damaged", self.status_text])
             print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
-        else:
             for shieldName in self.allShields:
                 if shieldName in self.attackablePackageNames:
                     self.allPackages[shieldName].attacked(dmg)
