@@ -2,7 +2,8 @@ import pygame
 
 class Time:
 
-    MS_PER_MINUTE = 300
+##    MS_PER_MINUTE = 300
+    MS_PER_MINUTE = 0
 
     def __init__(self, hour = 6, minute = 0):
         self.hour = hour

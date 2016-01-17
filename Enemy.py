@@ -3,10 +3,10 @@ import resources
 
 class Enemy:
 
-    DEFAULT_HEALTH = 1000
+    DEFAULT_HEALTH = 300
     DEFAULT_DAMAGE = 20
     
-    def __init__(self, delay=5):
+    def __init__(self, delay=30):
         self.x = 0
         self.y = 0
         self.hp = Enemy.DEFAULT_HEALTH

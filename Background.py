@@ -30,6 +30,10 @@ class Background:
         self.progress_green = resources.all_sprites["progressGreen.png"]
         self.progress_red = resources.all_sprites["progressRed.png"]
         self.house = resources.all_sprites["house.png"]
+
+
+        self.night = resources.all_sprites["night.png"]
+        self.night.set_alpha(200)
         
         self.font_size = 70
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
@@ -85,6 +89,10 @@ class Background:
         for i in range(0, len(self.cloud_list[0])):
             self.screen.blit(resources.all_sprites[self.cloud_list[0][i][3]], (self.cloud_list[0][i][0], self.cloud_list[0][i][1]))
         self.screen.blit(self.ship, (50, 200))
+
+        if not resources.game_manager.day:
+            self.screen.blit(self.night, (0,0))
+
         
         self.draw_glow((self.sky_position[0] - 50, self.sky_position[1] - 50))
         self.screen.blit(self.sky, self.sky_position)
@@ -140,4 +148,5 @@ class Background:
         self.screen.blit(self.progress_green, (50, 680), (0, 0, 200*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
 
         self.screen.blit(self.house, (1150, 630))
+
 
