@@ -1,7 +1,7 @@
 import random
 
 class Compartment:
-    def __init__(self, game_manager, decrease=5, increase=10, repairedHp=50, maxHp=100, minHp=0):
+    def __init__(self, game_manager, decrease=5, increase=10, repairedHp=100, maxHp=100, minHp=0):
         self.MAX_CANNON_COOLDOWN = 1
         self.FIRING_HP_DECREASE = 5
         self.cannonCooldown = 0
@@ -56,4 +56,3 @@ class Compartment:
             self.cannonCooldown = 0
             dmg = random.randint(20, 30)
             self.game_manager.cannonAttack(dmg)
-

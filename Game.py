@@ -15,6 +15,7 @@ class Game:
         self.packageSelections = [ None, None, None ]
         self.attackablePackageNames = {}
         self.allShields = []
+        self.messages = []
 
         self.shipHp = 100
         self.ship_power = 100
@@ -69,6 +70,7 @@ class Game:
     def update(self):
         # update stuff
         self.time.update()
+        self.console.get_message(self.messages)
 
         for name in self.allPackages:            
             active = self.allPackages[name].update(name in self.packageSelections)

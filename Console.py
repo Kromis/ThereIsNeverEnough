@@ -36,11 +36,12 @@ class Console:
 	def get_message(self, incoming_message_queue):
 		if len(incoming_message_queue) != 0:
 			self.message = self.message_list.pop([0])
+			self.message_list.append(self.message)
 			
 		if len(self.message_list) > 5:
 			self.message_list.pop([0])
 		
-		self.message_list.append(self.message)
+		
 		
 			
 		

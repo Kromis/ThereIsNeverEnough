@@ -1,5 +1,5 @@
 import random
-
+import resources
 
 class Enemy:
 
@@ -31,7 +31,9 @@ class Enemy:
         pass
         
     def attack(self):
-        return random.randint(10, 15)
+        damage = random.randint(10, 15)
+        resources.game_manager.messages.append(damage)
+        return damage
 
     def take_damage(self, damage):
         self.hp -= damage
