@@ -78,7 +78,7 @@ class Background:
         self.screen.blit(self.status_green, (110, 50 + 100), (0, 0, 200*resources.game_manager.shipHp/resources.game_manager.MAX_SHIP_HP, 20))
 
         self.screen.blit(self.status_red, (110, 50 + 200))
-        self.screen.blit(self.status_green, (110, 50 + 200), (0, 0, resources.game_manager.ship_power*2, 20))
+        self.screen.blit(self.status_green, (110, 50 + 200), (0, 0, 200*resources.game_manager.ship_power/resources.game_manager.MAX_SHIP_POWER, 20))
 
         self.screen.blit(self.status_red, (110, 50 + 300))
         self.screen.blit(self.status_green, (110, 50 + 300), (0, 0, resources.game_manager.ship_reload*2, 20))

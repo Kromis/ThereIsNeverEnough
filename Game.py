@@ -20,6 +20,7 @@ class Game:
 
         self.MAX_SHIP_HP = 100
         self.shipHp = 100
+        self.MAX_SHIP_POWER = 500
         self.ship_power = 500
         self.ship_reload = 0
         
@@ -64,15 +65,13 @@ class Game:
             if y > region[1][1]:
                 continue
             name = self.activeRegions[region]
-            print(name+" selected :)")
-            self.allPackages[name].compartment.toggleSelect()
-            # if name not in self.packageSelections:
-                # print(name+" selected :)")
-                #self.packageSelections.insert(0, name)
-                #removed = self.packageSelections.pop()
-                #if removed != None:
-                #    self.allPackages[removed].deselect()
-                # self.allPackages[name].compartment.toggleSelect()
+            if name not in self.packageSelections:
+                print(name+" selected :)")
+                self.packageSelections.insert(0, name)
+                removed = self.packageSelections.pop()
+                if removed != None:
+                    self.allPackages[removed].deselect()
+                self.allPackages[name].select()
             break
             
     def update(self):
@@ -85,7 +84,8 @@ class Game:
             if active:
                 self.attackablePackageNames[name] = True
             elif name in self.attackablePackageNames:
-                self.attackablePackageNames.pop(name, None)
+                self.attackablePackageNames.pop(name, None)            
+            
         self.monsterList.update()
 
         # draw stuff
