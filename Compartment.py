@@ -46,7 +46,8 @@ class Compartment:
 
     def update(self):
         if self.selected:
-            resources.game_manager.ship_power -= 5
+            if resources.game_manager.ship_power >= 1:
+                resources.game_manager.ship_power -= 1
         self.drain()
         self.power()
         self.cannonCooldown += 1

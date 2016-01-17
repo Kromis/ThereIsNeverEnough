@@ -30,7 +30,7 @@ class Game:
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
-        self.day = True
+        self.day = False
 
 
         self.monsterList = MonsterList()
@@ -47,9 +47,11 @@ class Game:
             self.allShields.append(name)
 
     def initializePackages(self):
-        self.addPackage("Weapon", "weapon", (580, 470))
-        self.addPackage("Health", "health", (700, 470))
-        self.addPackage("Shield", "shield", (200, 500))
+        self.addPackage("Weapon", "weapon", (600, 470))
+        self.addPackage("Weapon 2", "weapon", (720, 470))
+        self.addPackage("Health", "health", (380, 500))
+        self.addPackage("Health 2", "health", (490, 500))
+        self.addPackage("Shield", "shield", (250, 500))
         self.addPackage("Engine", "engine", (100, 500))
 
     def click(self, position):
@@ -73,6 +75,10 @@ class Game:
         # update stuff
         self.time.update()
         self.console.get_message(self.messages)
+
+        if self.day:
+            if (self.ship_power < self.MAX_SHIP_POWER):
+                self.ship_power += 2
 
         for name in self.allPackages:            
             self.allPackages[name].update(name)
