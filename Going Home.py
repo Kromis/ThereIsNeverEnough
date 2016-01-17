@@ -3,6 +3,7 @@ import pygame
 import resources
 from Background import Background
 from Draw_Comp import Draw_Comp
+from Game import *
 
 from pygame.locals import *
 
@@ -19,6 +20,9 @@ class GoingHome:
         self.background = Background(self.screen)
         self.game_manager = resources.game_manager
         self.gameState = "GAME"
+        
+        # move this later into the loop
+        self.game = Game(self.screen)
     
     def game_loop(self):
         while resources.main_loop_running:
@@ -35,8 +39,10 @@ class GoingHome:
                 
                 self.background.cloud_update()
                 self.background.draw()
-                test = Draw_Comp("shield.png", self.screen, (200, 500))
-                test.draw(False, False)
+                #test = Draw_Comp("shield.png", self.screen, (200, 500))
+                #test.draw(False, False)
+
+                self.game.update()
 
             pygame.display.update()
         pygame.quit()
