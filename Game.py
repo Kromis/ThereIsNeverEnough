@@ -5,7 +5,7 @@ from CompartmentPackage import *
 from Enemy import *
 import Console
 import resources
-
+from Time import Time
 
 class Game:
     def reset(self):
@@ -29,6 +29,7 @@ class Game:
         
         self.console = Console.Console(self.screen) 
         
+        resources.time = Time()
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
@@ -51,12 +52,13 @@ class Game:
             self.allShields.append(name)
 
     def initializePackages(self):
-        self.addPackage("Weapon", "weapon", (600, 470))
-        self.addPackage("Weapon 2", "weapon", (720, 470))
-        self.addPackage("Health", "health", (380, 500))
-        self.addPackage("Health 2", "health", (490, 500))
-        self.addPackage("Shield", "shield", (250, 500))
-        self.addPackage("Engine", "engine", (100, 500))
+
+        self.addPackage("Weapon 2", "weapon", (708, 470))
+        self.addPackage("Weapon", "weapon", (588, 470))
+        self.addPackage("Health 2", "health", (468, 500))
+        self.addPackage("Health", "health", (348, 500))
+        self.addPackage("Shield", "shield", (228, 500))
+        self.addPackage("Engine", "engine", (108, 500))
         self.addPackage("Light", "light", (443, 375))
 
     def click(self, position):
@@ -91,6 +93,11 @@ class Game:
         self.night.set_alpha(self.night_opacity)
 
         self.monsterList.update()
+        
+        if self.ship_progress >= self.SHIP_MAX_PROGRESS:
+            resources.state = "WIN"
+        elif self.shipHp <= 0:
+            resources.state = "LOSE"
 
         # draw stuff
         for p in self.allPackages:

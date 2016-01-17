@@ -48,6 +48,9 @@ class Compartment:
                 self.use()
 
     def update(self):
+        if resources.game_manager.ship_power <= 0:
+            self.selected = False
+    
         if self.selected:
             if resources.game_manager.ship_power >= 1:
                 resources.game_manager.ship_power -= 1
