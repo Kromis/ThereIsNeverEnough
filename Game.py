@@ -1,4 +1,4 @@
-from CompartmentPackages import *
+from CompartmentPackage import *
 
 class Game:
     def __init__(self):
@@ -16,5 +16,5 @@ class Game:
         addPackage("Weapon", "weapon", position)
                 
     def update(self):
-        for p in allPackages:
-            allPackages[p].draw()
+        for p in self.allPackages:
+            p.draw()
