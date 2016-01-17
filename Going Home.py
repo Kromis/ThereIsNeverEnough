@@ -37,7 +37,7 @@ class GoingHome:
                         resources.game_manager.click(pygame.mouse.get_pos())
                         print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
                 
-                self.background.cloud_update()
+                self.background.update()
                 self.background.draw()
                 #test = Draw_Comp("shield.png", self.screen, (200, 500))
                 #test.draw(False, False)
