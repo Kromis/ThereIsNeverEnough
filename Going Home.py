@@ -16,27 +16,41 @@ class GoingHome:
             image.convert_alpha()
             
         self.background = Background()
-        self.gameState = "GAME"
+        self.gameState = "START"
         
     def game_loop(self):
         while resources.main_loop_running:
-            if self.gameState == "GAME":
-                
-                # All mouse inputs go here
-                for event in pygame.event.get():
-                    if (event.type == pygame.QUIT):
-                        resources.main_loop_running = False
+            # All mouse inputs go here
+            for event in pygame.event.get():
+                if (event.type == pygame.QUIT):
+                    resources.main_loop_running = False
 
                     if pygame.mouse.get_pressed()[0]:
                         resources.game_manager.click(pygame.mouse.get_pos())
-##                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
-                
+                        ##                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
+
+            if self.gameState == "START":
+                start = resources.all_sprites["start.png"]
+                resources.screen.blit(start, (0,0))
+                pass
+
+            elif self.gameState == "GAME":
                 self.background.update()
                 self.background.draw()
                 #test = Draw_Comp("shield.png", self.screen, (200, 500))
                 #test.draw(False, False)
 
                 resources.game_manager.update()
+
+            elif self.gameState == "END":
+                gameOver= resources.all_sprites["gameOver.png"]
+                resources.screen.blit(gameOver, (0,0))
+                pass
+
+            elif self.gameState == "WIN":
+                win= resources.all_sprites["win.png"]
+                resources.screen.blit(win, (0,0))
+                pass
 
             pygame.display.update()
         pygame.quit()

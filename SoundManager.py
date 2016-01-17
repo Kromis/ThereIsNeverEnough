@@ -7,7 +7,7 @@ class SoundManager:
         self.all_sounds = {}
 
         pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=4096)
-        self.music = pygame.mixer.music.load('Sound/jammingHome.ogg')
+        self.music = pygame.mixer.music.load('Sound/jammingHome.wav')
         pygame.mixer.music.play(-1)
         
         for file in os.listdir('Sound'):
