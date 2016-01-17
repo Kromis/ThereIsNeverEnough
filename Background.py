@@ -3,8 +3,8 @@ import resources
 import pygame
 
 class Background:
-    def __init__(self):
-        self.screen = resources.screen
+    def __init__(self, game_screen):
+        self.screen = game_screen
         self.background = resources.all_sprites["background.png"]
         
         self.ship = resources.all_sprites["ship2.png"]

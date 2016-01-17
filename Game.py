@@ -6,10 +6,16 @@ from Enemy import *
 import Console
 import resources
 from Time import Time
+from ScreenShaker import *
+from Background import Background
 
 class Game:
     def reset(self):
-        self.screen = resources.screen
+        self.shakeScreen = resources.screen
+        self.screen = self.shakeScreen.copy()
+        self.background = Background(self.screen)
+        self.screenShaker = ScreenShaker()
+        
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
@@ -79,6 +85,11 @@ class Game:
             break
             
     def update(self):
+        self.background.update()
+        self.background.draw()
+    
+    
+    
         # update stuff
         self.time.update()
         self.console.get_message(self.messages)
@@ -108,6 +119,8 @@ class Game:
         self.allPackages["Light"].draw()
         self.console.draw()
         
+        self.screenShaker.update()
+        self.shakeScreen.blit(self.screen, self.screenShaker.getValue())
 
     def toggleDay(self):
         self.day = not self.day
