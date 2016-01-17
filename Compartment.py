@@ -2,7 +2,8 @@ import random
 import resources
 
 class Compartment:
-    def __init__(self, decrease=0.2, increase=1, repairedHp=25, maxHp=100, minHp=0):
+    def __init__(self, compType, decrease=0.2, increase=1, repairedHp=25, maxHp=100, minHp=0):
+        self.compType = compType;
         self.MAX_CANNON_COOLDOWN = 1
         self.FIRING_HP_DECREASE = 5
         self.cannonCooldown = 0
@@ -26,11 +27,10 @@ class Compartment:
 
     def drain(self, dmg=0):
         self.hp -= dmg
-        self.hp -= self.DECREASE
+        #self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
         if dmg > 0:
             self.checkActive()
-            resources.game_manager.affectShipHp(-dmg)
 
     def fill(self):
         self.hp += self.INCREASE
@@ -54,7 +54,7 @@ class Compartment:
         if self.hp == self.MIN_HP:
             self.active = False
     
-        if self.selected:
+        if self.selected and self.compType == 'weapon':
             resources.game_manager.ship_reload += 1
 
     def use(self):
