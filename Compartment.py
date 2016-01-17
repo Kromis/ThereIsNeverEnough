@@ -24,6 +24,9 @@ class Compartment:
 
     def toggleSelect(self):
         self.selected = not self.selected
+        if self.compType == "light":
+            self.use_light()
+
 
     def drain(self, dmg=0):
         self.hp -= dmg
@@ -72,11 +75,18 @@ class Compartment:
             if resources.game_manager.ship_reload >= 100:
                 dmg = random.randint(20, 30)
 
-                if random.randint(1, 10) > 1:
+                if random.randint(1, 10) > resources.game_manager.cannon_accuracy:
                     resources.game_manager.cannonAttack(dmg)
                     resources.game_manager.ship_reload = 0
                 
+    def use_light(self):
+        if self.selected:
+            resources.game_manager.night_opacity = 100
+            resources.game_manager.cannon_accuracy = 1
 
+        else:
+            resources.game_manager.night_opacity = 200
+            resources.game_manager.cannon_accuracy = 3
 
     def typeEngineUse(self):
         if self.active:
