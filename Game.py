@@ -4,11 +4,12 @@ from MonsterList import MonsterList
 from CompartmentPackage import *
 from Enemy import *
 import Console
+import resources
 
 
 class Game:
-    def __init__(self, screen):
-        self.screen = screen
+    def __init__(self):
+        self.screen = resources.screen
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
@@ -29,10 +30,10 @@ class Game:
         self.day = True
 
 
-        self.monsterList = MonsterList(self)
+        self.monsterList = MonsterList()
 
     def addPackage(self, name, compType, position):
-        package = CompartmentPackage(self, self.screen, compType, position)
+        package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
         self.allPackageNames.append(name)
