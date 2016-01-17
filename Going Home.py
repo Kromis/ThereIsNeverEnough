@@ -30,6 +30,10 @@ class GoingHome:
                         ##                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
 
             if self.gameState == "START":
+                if pygame.mouse.get_pressed()[0]:
+                    self.gameState = "GAME"
+                    resources.game_manager.reset()
+
                 start = resources.all_sprites["start.png"]
                 resources.screen.blit(start, (0,0))
                 pass
@@ -43,11 +47,17 @@ class GoingHome:
                 resources.game_manager.update()
 
             elif self.gameState == "END":
+                if pygame.mouse.get_pressed()[0]:
+                    self.gameState = "START"
+
                 gameOver= resources.all_sprites["gameOver.png"]
                 resources.screen.blit(gameOver, (0,0))
                 pass
 
             elif self.gameState == "WIN":
+                if pygame.mouse.get_pressed()[0]:
+                    self.gameState = "START"
+
                 win= resources.all_sprites["win.png"]
                 resources.screen.blit(win, (0,0))
                 pass

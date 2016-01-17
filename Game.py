@@ -8,7 +8,7 @@ import resources
 
 
 class Game:
-    def __init__(self):
+    def reset(self):
         self.screen = resources.screen
         self.activeRegions = {}
         self.allPackages = {}
@@ -31,6 +31,9 @@ class Game:
 
 
         self.monsterList = MonsterList()
+
+    def __init__(self):
+        self.reset()
 
     def addPackage(self, name, compType, position):
         package = CompartmentPackage(self.screen, compType, position)
