@@ -20,13 +20,14 @@ class Draw_Comp:
         self.screen.blit(self.red, (self.position[0] + 25, self.position[1] + 25))
         self.screen.blit(self.green, (self.position[0] + 25, self.position[1] + 25 + (100 -(100*compartment.hp/100))), (0, 0, 100, 100*compartment.hp/100))
 
-        if disabled:          
-            self.screen.blit(self.disable, (self.position[0] + 25, self.position[1] + 25))
-        
         self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
 
 
         self.screen.blit(self.border, (self.position[0] + 25, self.position[1] + 25))
+
+        if disabled:          
+            self.screen.blit(self.disable, (self.position[0] + 25, self.position[1] + 25))
+        
 
     def get_corners(self):
         return (self.position, (self.position[0] + 100, self.position[1] + 100))

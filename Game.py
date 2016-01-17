@@ -18,13 +18,15 @@ class Game:
         self.allShields = []
         self.messages = []
 
-        self.shipHp = 500
+        self.MAX_SHIP_HP = 100
+        self.shipHp = 100
         self.ship_power = 500
+        self.ship_reload = 0
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
 
-
+        
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
@@ -46,7 +48,7 @@ class Game:
 
     def initializePackages(self):
         self.addPackage("Weapon", "weapon", (580, 470))
-        self.addPackage("Weapon 2", "weapon", (700, 470))
+        self.addPackage("Health", "health", (700, 470))
         self.addPackage("Shield", "shield", (200, 500))
 
     def click(self, position):
@@ -98,7 +100,7 @@ class Game:
 
     def enemyAttack(self, dmg):
         if len(self.attackablePackageNames) == 0:
-            self.attackShip(dmg)
+            self.affectShipHp(-dmg)
             print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
         else:
             for shieldName in self.allShields:
@@ -109,9 +111,11 @@ class Game:
             self.allPackages[name].attacked(dmg)
             self.messages.append(["Monster", name, dmg])
             print("Compartment '{}' is attacked!".format(name))
-            
-    def attackShip(self, dmg):
-        self.shipHp -= dmg
+
+    def affectShipHp(self, value):
+        self.shipHp += value
+        self.shipHp = max(self.shipHp, 0)
+        self.shipHp = min(self.MAX_SHIP_HP, self.shipHp)
         if self.shipHp <= 0:
             print("You died")
 
