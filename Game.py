@@ -2,10 +2,12 @@ from Time import Time
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, screen):
+        self.screen = screen
         self.activeRegions = {}
         self.allPackages = {}
         self.packageSelections = [ None, None, None ]
+        self.initializePackages()
 
         self.time = Time()
         #tells Time to call "toggleDay" when 6:00 happens
@@ -14,13 +16,13 @@ class Game:
         self.day = True
 
     def addPackage(self, name, compType, position):
-        package = CompartmentPackage(compType, position)
+        package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
-        self.activeRegions[package.get_corners()] = name
+        self.activeRegions[((0,0),(100,100))] = name#package.get_corners()] = name
     
     def initializePackages(self):
         position = (0, 0)
-        addPackage("Weapon", "weapon", position)
+        self.addPackage("Weapon", "weapon", position)
 
     def click(self, position):
         for name in self.activeRegions:
@@ -43,12 +45,10 @@ class Game:
             break
             
     def update(self):
-        for p in self.allPackages:
-            self.allPackages[p].draw()
         self.time.update()
-        for p in allPackages:
-            self.allPackages[p].update()
-        for p in allPackages:
+        for p in self.allPackages:            
+            self.allPackages[p].update(p in self.packageSelections)
+        for p in self.allPackages:
             self.allPackages[p].draw()
 
     def toggleDay(self):

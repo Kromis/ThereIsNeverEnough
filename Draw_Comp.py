@@ -1,9 +1,9 @@
 import resources
 
 class Draw_Comp:
-    def __init__(self, comp_type, screen, position):
+    def __init__(self, comp_file_name, screen, position):
         self.screen = screen
-        self.comp = resources.all_sprites[comp_type]
+        self.comp = resources.all_sprites[comp_file_name]
         self.position = position
 
         self.red = resources.all_sprites["componentRed.png"]
@@ -29,4 +29,4 @@ class Draw_Comp:
         self.screen.blit(self.border, (self.position[0] + 25, self.position[1] + 25))
 
     def get_corners(self):
-        pass
+        return (self.position, (self.position[0] + 100, self.position[1] + 100))
