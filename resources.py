@@ -13,6 +13,7 @@ pygame.init()
 screen = pygame.display.set_mode((width, height))
 main_loop_running = True
 game_manager = Game.Game()
+state = "START"
 
 sound_manager = SoundManager()
 

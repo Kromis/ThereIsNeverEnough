@@ -5,7 +5,7 @@ from CompartmentPackage import *
 from Enemy import *
 import Console
 import resources
-
+from Time import Time
 
 class Game:
     def reset(self):
@@ -27,11 +27,11 @@ class Game:
         self.initializePackages()
         self.console = Console.Console(self.screen) 
         
+        resources.time = Time()
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
         self.day = False
-
 
         self.monsterList = MonsterList()
 
@@ -84,6 +84,11 @@ class Game:
             self.allPackages[name].update(name)
 
         self.monsterList.update()
+        
+        if self.ship_progress >= self.SHIP_MAX_PROGRESS:
+            resources.state = "WIN"
+        elif self.shipHp <= 0:
+            resources.state = "LOSE"
 
         # draw stuff
         for p in self.allPackages:
