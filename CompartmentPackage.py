@@ -37,7 +37,7 @@ class CompartmentPackage:
 
     def draw(self):
 
-        self.GUI.draw(self.compartment.selected, not self.compartment.active, self.compartment)
+        self.GUI.draw(self.compartment.selected, not self.compartment.active, self.compartment, self.compartment.MAX_HP)
 
     def attacked(self, dmg):
         self.compartment.drain(dmg)
