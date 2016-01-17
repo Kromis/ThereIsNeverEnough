@@ -1,7 +1,13 @@
+import pygame
+import random
 from Time import Time
 from CompartmentPackage import *
 
 class Game:
+
+    AVG_ENCOUNTER_TIME = 10000 #10 seconds
+    ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
+    
     def __init__(self, screen):
         self.screen = screen
         self.activeRegions = {}
@@ -12,8 +18,10 @@ class Game:
         self.time = Time()
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
-        
         self.day = True
+
+        self.updateTimeBetweenEncounters()
+        self.previousTime = pygame.time.get_ticks()
 
     def addPackage(self, name, compType, position):
         package = CompartmentPackage(self.screen, compType, position)
@@ -49,6 +57,7 @@ class Game:
             
     def update(self):
         self.time.update()
+        self.randomEncounter()
         for p in self.allPackages:            
             self.allPackages[p].update(p in self.packageSelections)
         for p in self.allPackages:
@@ -57,4 +66,19 @@ class Game:
     def toggleDay(self):
         self.day = not self.day
         print("DAY" if self.day else "NIGHT")
+
+    def updateTimeBetweenEncounters(self):
+        self.timeBetweenEncounters = Game.AVG_ENCOUNTER_TIME + \
+                                    random.randint(-Game.ENCOUNTER_TIME_VARIANCE, \
+                                                   Game.ENCOUNTER_TIME_VARIANCE)
+
+        
+    def randomEncounter(self):
+        now = pygame.time.get_ticks()
+        if now - self.previousTime >= self.timeBetweenEncounters:
+            self.previousTime = now
+            print("ENCOUNTER")
+            self.updateTimeBetweenEncounters()
+        
+
 
