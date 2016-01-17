@@ -14,8 +14,10 @@ class Compartment:
     def deselect(self):
         self.selected = False
     
-    def drain(self):
-        self.hp -= self.DECREASE
+    def drain(self, dmg=0):
+        self.hp -= dmg
+        if dmg > 0:
+            self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
 
     def fill(self):
@@ -37,5 +39,4 @@ class Compartment:
             self.active = False
 
     def use(self):
-        print("This compartment is doing hard work")
         pass

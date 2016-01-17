@@ -2,6 +2,7 @@ import pygame
 import random
 from Time import Time
 from CompartmentPackage import *
+from Enemy import *
 import Console
 
 class Game:
@@ -13,7 +14,13 @@ class Game:
         self.screen = screen
         self.activeRegions = {}
         self.allPackages = {}
+        self.allPackageNames = []
         self.packageSelections = [ None, None, None ]
+        self.allEnemies = [ None, None, None ]
+        self.attackablePackageNames = {}
+
+        self.shipHp = 100
+        
         self.initializePackages()
         self.console = Console.Console(self.screen) 
 
@@ -29,11 +36,17 @@ class Game:
         package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
-    
+        self.allPackageNames.append(name)
     def initializePackages(self):
         self.addPackage("Weapon", "weapon", (251, 521))
-        #self.addPackage("Weapon", "weapon", (351, 521))
-        #self.addPackage("Weapon", "weapon", (451, 521))
+        self.addPackage("Weapon2", "weapon", (351, 521))
+        self.addPackage("Weapon3", "weapon", (451, 521))
+        self.addPackage("Weapon4", "weapon", (551, 521))
+
+    def spawnEnemy(self):
+        if None in self.allEnemies:
+            self.allEnemies.insert(0, Enemy())
+            self.allEnemies.pop()
 
     def click(self, position):
         for region in self.activeRegions:
@@ -58,12 +71,28 @@ class Game:
             break
             
     def update(self):
+        # update stuff
         self.time.update()
         self.randomEncounter()
-        for p in self.allPackages:            
-            self.allPackages[p].update(p in self.packageSelections)
+        for name in self.allPackages:            
+            active = self.allPackages[name].update(name in self.packageSelections)
+            if active:
+                self.attackablePackageNames[name] = True
+            elif name in self.attackablePackageNames:
+                self.attackablePackageNames.pop(name, None)
+        for enemy in self.allEnemies:
+            if enemy == None:
+                break
+            attack = enemy.update()
+            if attack:
+                self.enemyAttack()
+
+        # draw stuff
         for p in self.allPackages:
             self.allPackages[p].draw()
+        for enemy in self.allEnemies:
+            pass
+            #draw enemy
         self.console.draw()
 
     def toggleDay(self):
@@ -82,6 +111,20 @@ class Game:
             self.previousTime = now
             print("ENCOUNTER")
             self.updateTimeBetweenEncounters()
-        
+            self.spawnEnemy()
 
+    def enemyAttack(self):
+        dmg = random.randint(10, 15)
+        if len(self.attackablePackageNames) == 0:
+            self.attackShip(dmg)
+            print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
+        else:
+            name = random.choice(list(self.attackablePackageNames.keys()))
+            self.allPackages[name].attacked(dmg)
+            print("Compartment '{}' is attacked!".format(name))
+        
+    def attackShip(self, dmg):
+        self.shipHp -= dmg
+        if self.shipHp <= 0:
+            print("You died")
 

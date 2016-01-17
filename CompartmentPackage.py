@@ -14,9 +14,13 @@ class CompartmentPackage:
 
     def update(self, selected):
         self.compartment.update()
+        return self.active()
 
     def draw(self):
         self.GUI.draw(self.compartment.selected, not self.compartment.active)
+
+    def attacked(self, dmg):
+        self.compartment.drain(dmg)
     
     # Getters
     def selected(self):
