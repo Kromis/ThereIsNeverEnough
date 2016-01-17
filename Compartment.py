@@ -3,6 +3,7 @@ import random
 class Compartment:
     def __init__(self, game_manager, decrease=5, increase=10, repairedHp=50, maxHp=100, minHp=0):
         self.MAX_CANNON_COOLDOWN = 1
+        self.FIRING_HP_DECREASE = 5
         self.cannonCooldown = 0
         self.game_manager = game_manager
         self.active = True
@@ -48,7 +49,8 @@ class Compartment:
         pass
 
     def typeWeaponUse(self):
-        if self.cannonCooldown > self.MAX_CANNON_COOLDOWN:
+        if self.cannonCooldown > self.MAX_CANNON_COOLDOWN and self.hp > self.FIRING_HP_DECREASE:
+            self.hp -= self.FIRING_HP_DECREASE
             self.cannonCooldown = 0
             dmg = random.randint(20, 30)
             self.game_manager.cannonAttack(dmg)
