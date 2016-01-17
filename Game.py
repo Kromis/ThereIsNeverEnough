@@ -1,5 +1,5 @@
 from Time import Time
-
+from CompartmentPackage import *
 
 class Game:
     def __init__(self, screen):
@@ -18,15 +18,15 @@ class Game:
     def addPackage(self, name, compType, position):
         package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
-        self.activeRegions[((0,0),(100,100))] = name#package.get_corners()] = name
+        self.activeRegions[package.get_corners()] = name
     
     def initializePackages(self):
-        position = (0, 0)
-        self.addPackage("Weapon", "weapon", position)
+        self.addPackage("Weapon", "weapon", (251, 521))
+        #self.addPackage("Weapon", "weapon", (351, 521))
+        #self.addPackage("Weapon", "weapon", (451, 521))
 
     def click(self, position):
-        for name in self.activeRegions:
-            region = self.activeRegions[name]
+        for region in self.activeRegions:
             x = position[0]
             y = position[1]
             if x < region[0][0]:
@@ -37,11 +37,14 @@ class Game:
                 continue
             if y > region[1][1]:
                 continue
+            name = self.activeRegions[region]
             if name not in self.packageSelections:
+                print(name+" selected :)")
                 self.packageSelections.insert(0, name)
                 removed = self.packageSelections.pop()
-                allPackages[removed].deselect()
-                allPackages[name].select()
+                if removed != None:
+                    self.allPackages[removed].deselect()
+                self.allPackages[name].select()
             break
             
     def update(self):
