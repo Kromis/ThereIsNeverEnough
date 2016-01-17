@@ -4,11 +4,12 @@ from MonsterList import MonsterList
 from CompartmentPackage import *
 from Enemy import *
 import Console
+import resources
 
 
 class Game:
-    def __init__(self, screen):
-        self.screen = screen
+    def reset(self):
+        self.screen = resources.screen
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
@@ -17,8 +18,8 @@ class Game:
         self.allShields = []
         self.messages = []
 
-        self.shipHp = 100
-        self.ship_power = 100
+        self.shipHp = 500
+        self.ship_power = 500
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
@@ -30,10 +31,13 @@ class Game:
         self.day = True
 
 
-        self.monsterList = MonsterList(self)
+        self.monsterList = MonsterList()
+
+    def __init__(self):
+        self.reset()
 
     def addPackage(self, name, compType, position):
-        package = CompartmentPackage(self, self.screen, compType, position)
+        package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
         self.allPackageNames.append(name)
@@ -110,6 +114,6 @@ class Game:
             print("You died")
 
     def cannonAttack(self, dmg):
-        self.monsterList.attackOldestMonster(dmg)
+        return self.monsterList.attackOldestMonster(dmg)
 
 

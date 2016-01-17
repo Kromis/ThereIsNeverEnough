@@ -1,6 +1,7 @@
 import random
 import pygame
 from Enemy import Enemy
+import resources
 
 class MonsterList:
 
@@ -9,8 +10,7 @@ class MonsterList:
 
     MAX_MONSTERS = 3
 
-    def __init__(self, game_manager):
-        self.game_manager = game_manager
+    def __init__(self):
         self.list = []
 
         self.updateTimeBetweenEncounters()
@@ -26,7 +26,7 @@ class MonsterList:
         for monster in self.list:
             dmg = monster.update()
             if dmg > 0:
-                self.game_manager.enemyAttack(dmg)
+                resources.game_manager.enemyAttack(dmg)
 
     def draw(self):
         for m in self.list:
@@ -52,3 +52,5 @@ class MonsterList:
             if not active:
                 print("Enemy died already")
                 self.list.pop()
+            return True
+        return False

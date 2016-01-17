@@ -3,12 +3,11 @@ from Draw_Comp import *
 
 class CompartmentPackage:
 
-    def __init__(self, game_manager, screen, compType, position):
-        self.game_manager = game_manager
+    def __init__(self, screen, compType, position):
         self.type = compType
         self.GUI = None #DrawObject
 
-        self.compartment = Compartment(self.game_manager)
+        self.compartment = Compartment()
         self.screen = screen
 
 
