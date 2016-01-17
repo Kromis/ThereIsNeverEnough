@@ -93,8 +93,9 @@ class Game:
             if self.allPackages[shieldName].compartment.active:
                 self.allPackages[shieldName].attacked(dmg)
                 return
-         
-        print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
+        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
+        self.messages.append(["None", "None", "Damaged", self.text])
+        print("Your ship is attacked! Current health left: {}".format(self.shipHp))
         self.affectShipHp(-dmg)
 
          
