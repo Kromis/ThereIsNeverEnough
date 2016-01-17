@@ -2,8 +2,8 @@ import random
 import resources
 
 class Background:
-    def __init__(self, screen):
-        self.screen = screen
+    def __init__(self):
+        self.screen = resources.screen
         
         self.background = resources.all_sprites["background.png"]
         self.ship = resources.all_sprites["ship.png"]
