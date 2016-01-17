@@ -17,12 +17,11 @@ class Game:
         self.allShields = []
 
         self.shipHp = 100
+        self.ship_power = 100
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
 
-        self.ship_health = 30
-        self.ship_power = 100
 
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
