@@ -13,6 +13,7 @@ class Game:
     def reset(self):
         self.shakeScreen = resources.screen
         self.screen = self.shakeScreen.copy()
+        resources.screen_copied = self.screen
         self.background = Background(self.screen)
         self.screenShaker = ScreenShaker()
         
