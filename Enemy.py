@@ -2,8 +2,7 @@ import random
 import resources
 
 class Enemy:
-
-    DEFAULT_HEALTH = 100
+    DEFAULT_HEALTH = 300
     DEFAULT_DAMAGE = 20
     
     def __init__(self, delay=20):

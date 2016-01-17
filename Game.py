@@ -18,9 +18,11 @@ class Game:
 
         self.MAX_SHIP_HP = 100
         self.shipHp = 100
-        self.MAX_SHIP_POWER = 500
-        self.ship_power = 500
+        self.MAX_SHIP_POWER = 1400
+        self.ship_power = 1400
         self.ship_reload = 0
+        self.SHIP_MAX_PROGRESS = 500
+        self.ship_progress = 0
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
@@ -28,7 +30,7 @@ class Game:
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
-        self.day = True
+        self.day = False
 
 
         self.monsterList = MonsterList()
@@ -45,9 +47,12 @@ class Game:
             self.allShields.append(name)
 
     def initializePackages(self):
-        self.addPackage("Weapon", "weapon", (580, 470))
-        self.addPackage("Health", "health", (700, 470))
-        self.addPackage("Shield", "shield", (200, 500))
+        self.addPackage("Weapon 2", "weapon", (708, 470))
+        self.addPackage("Weapon", "weapon", (588, 470))
+        self.addPackage("Health 2", "health", (468, 500))
+        self.addPackage("Health", "health", (348, 500))
+        self.addPackage("Shield", "shield", (228, 500))
+        self.addPackage("Engine", "engine", (108, 500))
 
     def click(self, position):
         for region in self.activeRegions:
@@ -70,6 +75,10 @@ class Game:
         # update stuff
         self.time.update()
         self.console.get_message(self.messages)
+
+        if self.day:
+            if (self.ship_power < self.MAX_SHIP_POWER):
+                self.ship_power += 2
 
         for name in self.allPackages:            
             self.allPackages[name].update(name)
