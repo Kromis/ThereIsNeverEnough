@@ -52,3 +52,5 @@ class MonsterList:
             if not active:
                 print("Enemy died already")
                 self.list.pop()
+            return True
+        return False

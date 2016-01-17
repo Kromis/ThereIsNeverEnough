@@ -2,7 +2,7 @@ import random
 import resources
 
 class Compartment:
-    def __init__(self, decrease=5, increase=10, repairedHp=50, maxHp=100, minHp=0):
+    def __init__(self, decrease=0.2, increase=1, repairedHp=50, maxHp=100, minHp=0):
         self.MAX_CANNON_COOLDOWN = 1
         self.FIRING_HP_DECREASE = 5
         self.cannonCooldown = 0
@@ -23,8 +23,7 @@ class Compartment:
 
     def drain(self, dmg=0):
         self.hp -= dmg
-        if dmg > 0:
-            self.hp -= self.DECREASE
+        self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
 
     def fill(self):
@@ -52,8 +51,10 @@ class Compartment:
 
     def typeWeaponUse(self):
         if self.cannonCooldown > self.MAX_CANNON_COOLDOWN and self.hp > self.FIRING_HP_DECREASE:
-            self.hp -= self.FIRING_HP_DECREASE
             self.cannonCooldown = 0
             dmg = random.randint(20, 30)
-            resources.game_manager.cannonAttack(dmg)
+            attacked = resources.game_manager.cannonAttack(dmg)
+            if attacked:
+                self.hp -= self.FIRING_HP_DECREASE
+            
 
