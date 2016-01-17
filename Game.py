@@ -7,8 +7,6 @@ import Console
 
 
 class Game:
-
-
     def __init__(self, screen):
         self.screen = screen
         self.activeRegions = {}
@@ -16,6 +14,7 @@ class Game:
         self.allPackageNames = []
         self.packageSelections = [ None, None, None ]
         self.attackablePackageNames = {}
+        self.allShields = []
 
         self.shipHp = 100
         
@@ -34,15 +33,14 @@ class Game:
         self.monsterList = MonsterList(self)
 
     def addPackage(self, name, compType, position):
-
         package = CompartmentPackage(self, self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
-
         self.allPackageNames.append(name)
+        if compType == "shield":
+            self.allShields.append(name)
 
     def initializePackages(self):
-
         self.addPackage("Weapon", "weapon", (580, 470))
         self.addPackage("Weapon 2", "weapon", (700, 470))
         self.addPackage("Shield", "shield", (200, 500))
@@ -98,6 +96,10 @@ class Game:
             self.attackShip(dmg)
             print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
         else:
+            for shieldName in self.allShields:
+                if shieldName in self.attackablePackageNames:
+                    self.allPackages[shieldName].attacked(dmg)
+                    return
             name = random.choice(list(self.attackablePackageNames.keys()))
             self.allPackages[name].attacked(dmg)
             print("Compartment '{}' is attacked!".format(name))
