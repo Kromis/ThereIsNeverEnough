@@ -22,6 +22,11 @@ class Background:
         self.sidebar_border = resources.all_sprites["status.png"]
         self.sky = self.sun
         self.sky_position = (resources.width/3, 0)
+
+        self.progress_border = resources.all_sprites["progress.png"]
+        self.progress_green = resources.all_sprites["progressGreen.png"]
+        self.progress_red = resources.all_sprites["progressRed.png"]
+        self.house = resources.all_sprites["house.png"]
         
         self.font_size = 100
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
@@ -86,4 +91,10 @@ class Background:
         self.screen.blit(self.status_red, (110, 50 + 300))
         self.screen.blit(self.status_green, (110, 50 + 300), (0, 0, resources.game_manager.ship_reload*2, 20))
         self.screen.blit(self.sidebar_border, (110, 50 + 300))
+
+        self.screen.blit(self.progress_border, (50, 680))
+        self.screen.blit(self.progress_red, (50, 680))
+        self.screen.blit(self.progress_green, (50, 680), (0, 0, 200*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
+
+        self.screen.blit(self.house, (1150, 630))
 

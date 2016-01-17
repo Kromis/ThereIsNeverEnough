@@ -21,6 +21,8 @@ class Game:
         self.MAX_SHIP_POWER = 500
         self.ship_power = 500
         self.ship_reload = 0
+        self.SHIP_MAX_PROGRESS = 500
+        self.ship_progress = 0
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
@@ -48,6 +50,7 @@ class Game:
         self.addPackage("Weapon", "weapon", (580, 470))
         self.addPackage("Health", "health", (700, 470))
         self.addPackage("Shield", "shield", (200, 500))
+        self.addPackage("Engine", "engine", (100, 500))
 
     def click(self, position):
         for region in self.activeRegions:
