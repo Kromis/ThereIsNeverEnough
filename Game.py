@@ -25,7 +25,7 @@ class Game:
         self.ship_health = 30
         self.ship_power = 100
 
-        self.time = Time()
+        self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
         self.day = True
