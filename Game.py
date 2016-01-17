@@ -2,6 +2,7 @@ import pygame
 import random
 from Time import Time
 from CompartmentPackage import *
+import Console
 
 class Game:
 
@@ -14,6 +15,7 @@ class Game:
         self.allPackages = {}
         self.packageSelections = [ None, None, None ]
         self.initializePackages()
+        self.console = Console.Console(self.screen) 
 
         self.time = Time()
         #tells Time to call "toggleDay" when 6:00 happens
@@ -62,6 +64,7 @@ class Game:
             self.allPackages[p].update(p in self.packageSelections)
         for p in self.allPackages:
             self.allPackages[p].draw()
+        self.console.draw()
 
     def toggleDay(self):
         self.day = not self.day

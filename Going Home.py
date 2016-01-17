@@ -11,19 +11,13 @@ class GoingHome:
     def __init__(self):
         self.width = resources.width
         self.height = resources.height
-##        self.screen = pygame.display.set_mode((self.width, self.height))
 
         for image in resources.all_sprites.values():
             image.convert_alpha()
             
         self.background = Background()
-##        self.game_manager = resources.game_manager
         self.gameState = "GAME"
         
-        # move this later into the loop
-##        resources.game_manager = Game(resources.screen)
-##        self.game = Game(self.screen)
-    
     def game_loop(self):
         while resources.main_loop_running:
             if self.gameState == "GAME":
