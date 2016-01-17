@@ -1,7 +1,6 @@
 import os, sys
 import pygame
 import resources
-from Background import Background
 from Draw_Comp import Draw_Comp
 from Game import *
 
@@ -14,8 +13,6 @@ class GoingHome:
 
         for image in resources.all_sprites.values():
             image.convert_alpha()
-            
-        self.background = Background()
         
     def game_loop(self):
         while resources.main_loop_running:
@@ -41,11 +38,8 @@ class GoingHome:
                 pass
 
             elif resources.state == "GAME":
-                self.background.update()
-                self.background.draw()
                 #test = Draw_Comp("shield.png", self.screen, (200, 500))
                 #test.draw(False, False)
-
                 resources.game_manager.update()
 
             elif resources.state == "LOSE":
