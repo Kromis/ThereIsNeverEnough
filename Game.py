@@ -1,14 +1,11 @@
 import pygame
-import random
 from Time import Time
+from MonsterList import MonsterList
 from CompartmentPackage import *
 import Console
 
 class Game:
 
-    AVG_ENCOUNTER_TIME = 10000 #10 seconds
-    ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
-    
     def __init__(self, screen):
         self.screen = screen
         self.activeRegions = {}
@@ -22,14 +19,14 @@ class Game:
         self.time.setToggleDayListener(self, '6:00')
         self.day = True
 
-        self.updateTimeBetweenEncounters()
-        self.previousTime = pygame.time.get_ticks()
+        self.monsterList = MonsterList()
 
     def addPackage(self, name, compType, position):
         package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
-    
+
+
     def initializePackages(self):
         self.addPackage("Weapon", "weapon", (251, 521))
         #self.addPackage("Weapon", "weapon", (351, 521))
@@ -59,29 +56,22 @@ class Game:
             
     def update(self):
         self.time.update()
-        self.randomEncounter()
+
         for p in self.allPackages:            
             self.allPackages[p].update(p in self.packageSelections)
+
+        self.monsterList.update(self.allPackages)
+            
         for p in self.allPackages:
             self.allPackages[p].draw()
         self.console.draw()
+
+        self.monsterList.draw()
 
     def toggleDay(self):
         self.day = not self.day
         print("DAY" if self.day else "NIGHT")
 
-    def updateTimeBetweenEncounters(self):
-        self.timeBetweenEncounters = Game.AVG_ENCOUNTER_TIME + \
-                                    random.randint(-Game.ENCOUNTER_TIME_VARIANCE, \
-                                                   Game.ENCOUNTER_TIME_VARIANCE)
 
-        
-    def randomEncounter(self):
-        now = pygame.time.get_ticks()
-        if now - self.previousTime >= self.timeBetweenEncounters:
-            self.previousTime = now
-            print("ENCOUNTER")
-            self.updateTimeBetweenEncounters()
-        
 
 
