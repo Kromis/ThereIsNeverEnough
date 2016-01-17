@@ -74,7 +74,10 @@ class Compartment:
                 
 
 
-        
+    def typeEngineUse(self):
+        if self.active:
+            resources.game_manager.ship_progress += 1
+
 ##        if self.cannonCooldown > self.MAX_CANNON_COOLDOWN and self.hp > self.FIRING_HP_DECREASE:
 ##            self.cannonCooldown = 0
 ##            dmg = random.randint(20, 30)

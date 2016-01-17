@@ -24,6 +24,7 @@ class CompartmentPackage:
             file_name = "health.png"
 
         elif compType == "engine":
+            self.compartment.use = self.compartment.typeEngineUse
             file_name = "engine.png"
 
         elif compType == "light":
