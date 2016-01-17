@@ -10,7 +10,6 @@ class Compartment:
         self.MAX_HP = maxHp
         self.MIN_HP = minHp
         self.REPAIRED_HP = repairedHp
-        self.RESTORE_SHIP_HP = 10
         self.hp = self.MAX_HP
         self.selected = False
         self.DECREASE = decrease
@@ -27,8 +26,7 @@ class Compartment:
         self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
         if dmg > 0:
-            self.checkActive()
-            resources.game_manager.affectShipHp(-dmg)
+            resources.game_manager.shipHp -= dmg
 
     def fill(self):
         self.hp += self.INCREASE
@@ -46,13 +44,10 @@ class Compartment:
         self.drain()
         self.power()
         self.cannonCooldown += 1
-        self.checkActive()
-
-    def checkActive(self):
         if self.hp == self.MIN_HP:
             self.active = False
-    
-        if self.selected:
+
+        if self.selected and self.active:
             resources.game_manager.ship_reload += 1
 
     def use(self):
@@ -79,5 +74,3 @@ class Compartment:
 ##                self.hp -= self.FIRING_HP_DECREASE
             
 
-    def typeHealthUse(self):
-        resources.game_manager.affectShipHp(self.RESTORE_SHIP_HP)
