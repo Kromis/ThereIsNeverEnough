@@ -64,13 +64,15 @@ class Game:
             if y > region[1][1]:
                 continue
             name = self.activeRegions[region]
-            if name not in self.packageSelections:
-                print(name+" selected :)")
-                self.packageSelections.insert(0, name)
-                removed = self.packageSelections.pop()
-                if removed != None:
-                    self.allPackages[removed].deselect()
-                self.allPackages[name].select()
+            print(name+" selected :)")
+            self.allPackages[name].compartment.toggleSelect()
+            # if name not in self.packageSelections:
+                # print(name+" selected :)")
+                #self.packageSelections.insert(0, name)
+                #removed = self.packageSelections.pop()
+                #if removed != None:
+                #    self.allPackages[removed].deselect()
+                # self.allPackages[name].compartment.toggleSelect()
             break
             
     def update(self):
