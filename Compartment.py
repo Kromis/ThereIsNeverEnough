@@ -27,6 +27,7 @@ class Compartment:
         self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
         if dmg > 0:
+            self.checkActive()
             resources.game_manager.affectShipHp(-dmg)
 
     def fill(self):
@@ -45,9 +46,12 @@ class Compartment:
         self.drain()
         self.power()
         self.cannonCooldown += 1
+        self.checkActive()
+
+    def checkActive(self):
         if self.hp == self.MIN_HP:
             self.active = False
-
+    
     def use(self):
         pass
 
