@@ -50,13 +50,13 @@ class Console:
 				
 		self.event = self.message[2]
 		
-		if self.event.type == int
+		if self.event.type == int:
 			self.damage = self.message.event
 			self.message[0] + "has attacked" + self.message[1] + "for " + str(self.damage)
 		
-		if self.event.type == str
-			if event == "Missed"
-			self.message[0] + " missed"
+		if self.event.type == str:
+			if event == "Missed":
+				self.message[0] + " missed"
 		
 		
 		
