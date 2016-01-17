@@ -1,5 +1,11 @@
+import random
+
 class Compartment:
-    def __init__(self, decrease=5, increase=10, repairedHp=50, maxHp=100, minHp=0):
+    def __init__(self, game_manager, decrease=5, increase=10, repairedHp=50, maxHp=100, minHp=0):
+        self.MAX_CANNON_COOLDOWN = 1
+        self.FIRING_HP_DECREASE = 5
+        self.cannonCooldown = 0
+        self.game_manager = game_manager
         self.active = True
         self.MAX_HP = maxHp
         self.MIN_HP = minHp
@@ -14,8 +20,11 @@ class Compartment:
     def deselect(self):
         self.selected = False
     
-    def drain(self):
-        self.hp -= self.DECREASE
+
+    def drain(self, dmg=0):
+        self.hp -= dmg
+        if dmg > 0:
+            self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
 
     def fill(self):
@@ -27,15 +36,24 @@ class Compartment:
     def power(self):
         if self.selected:
             self.fill()
-        if self.active:
-            self.use()
+
+            if self.active:
+                self.use()
 
     def update(self):
         self.drain()
         self.power()
+        self.cannonCooldown += 1
         if self.hp == self.MIN_HP:
             self.active = False
 
     def use(self):
-##        print("This compartment is doing hard work")
+
         pass
+
+    def typeWeaponUse(self):
+        if self.cannonCooldown > self.MAX_CANNON_COOLDOWN and self.hp > self.FIRING_HP_DECREASE:
+            self.hp -= self.FIRING_HP_DECREASE
+            self.cannonCooldown = 0
+            dmg = random.randint(20, 30)
+            self.game_manager.cannonAttack(dmg)
