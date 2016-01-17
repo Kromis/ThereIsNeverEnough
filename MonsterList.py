@@ -18,15 +18,15 @@ class MonsterList:
 
     def addMonster(self, monster):
         if len(self.list) < MonsterList.MAX_MONSTERS:
-            self.list.append(monster)
+            self.list.insert(0, monster)
             print("NEW MONSTER ENCOUNTER")
 
     def update(self):
         self.randomEncounter()
         for monster in self.list:
-            attack = monster.update()
-            if attack:
-                self.game_manager.enemyAttack()
+            dmg = monster.update()
+            if dmg > 0:
+                self.game_manager.enemyAttack(dmg)
 
     def draw(self):
         for m in self.list:
@@ -45,3 +45,10 @@ class MonsterList:
             self.addMonster(Enemy())
             self.updateTimeBetweenEncounters()
         
+    def attackOldestMonster(self, dmg):
+        if len(self.list) > 0:
+            print("Attack!")
+            active = self.list[-1].take_damage(dmg)
+            if not active:
+                print("Enemy died already")
+                self.list.pop()

@@ -1,7 +1,9 @@
+import random
+
 
 class Enemy:
 
-    DEFAULT_HEALTH = 100
+    DEFAULT_HEALTH = 1000
     DEFAULT_DAMAGE = 20
     
     def __init__(self, delay=5):
@@ -22,17 +24,18 @@ class Enemy:
         self.delayCounter += 1
         if self.delayCounter > self.delay:
             self.delayCounter = 0
-            return True
+            return self.attack()
         return False
 
     def draw(self):
         pass
         
-    def attack(self, thing):
-        thing.hp -= self.damage
+    def attack(self):
+        return random.randint(10, 15)
 
     def take_damage(self, damage):
         self.hp -= damage
+        return not self.is_dead()
 
     def is_dead(self):
         return not self.alive

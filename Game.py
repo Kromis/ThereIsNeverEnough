@@ -29,7 +29,7 @@ class Game:
         self.monsterList = MonsterList(self)
 
     def addPackage(self, name, compType, position):
-        package = CompartmentPackage(self.screen, compType, position)
+        package = CompartmentPackage(self, self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
         self.allPackageNames.append(name)
@@ -84,8 +84,7 @@ class Game:
         self.day = not self.day
         print("DAY" if self.day else "NIGHT")
 
-    def enemyAttack(self):
-        dmg = random.randint(10, 15)
+    def enemyAttack(self, dmg):
         if len(self.attackablePackageNames) == 0:
             self.attackShip(dmg)
             print("Your ship is attacked! Current health left: {}:".format(self.shipHp))
@@ -93,9 +92,12 @@ class Game:
             name = random.choice(list(self.attackablePackageNames.keys()))
             self.allPackages[name].attacked(dmg)
             print("Compartment '{}' is attacked!".format(name))
-        
     def attackShip(self, dmg):
         self.shipHp -= dmg
         if self.shipHp <= 0:
             print("You died")
+
+    def cannonAttack(self, dmg):
+        self.monsterList.attackOldestMonster(dmg)
+
 
