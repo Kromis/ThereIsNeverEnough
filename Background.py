@@ -5,8 +5,8 @@ import pygame
 class Background:
     def __init__(self):
         self.screen = resources.screen
-        
         self.background = resources.all_sprites["background.png"]
+        
         self.ship = resources.all_sprites["ship2.png"]
         self.clock = resources.all_sprites["clock.png"]
         self.health = resources.all_sprites["health.png"]
@@ -69,10 +69,24 @@ class Background:
         for i in range(0, len(self.cloud_list[0])):
             self.screen.blit(resources.all_sprites[self.cloud_list[0][i][3]], (self.cloud_list[0][i][0], self.cloud_list[0][i][1]))
         self.screen.blit(self.ship, (50, 200))
+        
+        if self.sky == self.sun:
+            self.screen.blit(self.glow, (self.sky_position[0] - 50, self.sky_position[1] - 50))
         self.screen.blit(self.sky, self.sky_position)
+
+        if self.sky == self.sun:
+            self.screen.blit(self.glow, (10 - 100, 200 - 100))
+        
         self.screen.blit(self.font.render(self.time_text, True, pygame.Color(255, 255, 255)), (120, 0))
         for item in range(len(self.sidebar)):
             self.screen.blit(self.sidebar[item], (10, 100*item))
+         
+            
+        lightbulb_pos = (468, 245)
+        if self.sky == self.sun:
+            self.screen.blit(self.glow, (lightbulb_pos[0] - 100, lightbulb_pos[1] - 100))
+        self.screen.blit(self.power, lightbulb_pos)
+        
             
         self.screen.blit(self.status_red, (110, 50 + 100))
         self.screen.blit(self.status_green, (110 + (200-200*resources.game_manager.shipHp/resources.game_manager.MAX_SHIP_HP), 50 + 100), (0, 0, 200*resources.game_manager.shipHp/resources.game_manager.MAX_SHIP_HP, 20))
