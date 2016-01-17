@@ -103,8 +103,9 @@ class Game:
         for p in self.allPackages:
             if p != "Light":
                 self.allPackages[p].draw()
-        self.allPackages["Light"].draw()
+
         self.monsterList.draw()
+        self.allPackages["Light"].draw()
         self.console.draw()
         
 
