@@ -17,8 +17,8 @@ class Game:
         self.attackablePackageNames = {}
         self.allShields = []
 
-        self.shipHp = 100
-        self.ship_power = 100
+        self.shipHp = 500
+        self.ship_power = 500
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 

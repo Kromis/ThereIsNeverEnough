@@ -25,6 +25,8 @@ class Compartment:
         self.hp -= dmg
         self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
+        if dmg > 0:
+            resources.game_manager.shipHp -= dmg
 
     def fill(self):
         self.hp += self.INCREASE
@@ -35,7 +37,6 @@ class Compartment:
     def power(self):
         if self.selected:
             self.fill()
-
             if self.active:
                 self.use()
 
