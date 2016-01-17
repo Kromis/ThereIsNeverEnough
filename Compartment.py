@@ -48,7 +48,6 @@ class Compartment:
             self.active = False
 
     def use(self):
-
         pass
 
     def typeWeaponUse(self):
@@ -57,3 +56,4 @@ class Compartment:
             self.cannonCooldown = 0
             dmg = random.randint(20, 30)
             self.game_manager.cannonAttack(dmg)
+
