@@ -16,6 +16,7 @@ class Game:
         self.packageSelections = [ None, None, None ]
         self.attackablePackageNames = {}
         self.allShields = []
+        self.messages = []
 
         self.shipHp = 500
         self.ship_power = 500
@@ -75,6 +76,7 @@ class Game:
     def update(self):
         # update stuff
         self.time.update()
+        self.console.get_message(self.messages)
 
         for name in self.allPackages:            
             active = self.allPackages[name].update(name in self.packageSelections)
@@ -107,6 +109,7 @@ class Game:
                     return
             name = random.choice(list(self.attackablePackageNames.keys()))
             self.allPackages[name].attacked(dmg)
+            self.messages.append(["Monster", name, dmg])
             print("Compartment '{}' is attacked!".format(name))
     def attackShip(self, dmg):
         self.shipHp -= dmg
