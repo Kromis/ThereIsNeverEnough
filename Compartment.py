@@ -10,6 +10,7 @@ class Compartment:
         self.MAX_HP = maxHp
         self.MIN_HP = minHp
         self.REPAIRED_HP = repairedHp
+        self.RESTORE_SHIP_HP = 10
         self.hp = self.MAX_HP
         self.selected = False
         self.DECREASE = decrease
@@ -26,7 +27,7 @@ class Compartment:
         self.hp -= self.DECREASE
         self.hp = max(self.hp, self.MIN_HP)
         if dmg > 0:
-            resources.game_manager.shipHp -= dmg
+            resources.game_manager.affectShipHp(-dmg)
 
     def fill(self):
         self.hp += self.INCREASE
@@ -58,4 +59,6 @@ class Compartment:
             if attacked:
                 self.hp -= self.FIRING_HP_DECREASE
             
+    def typeHealthUse(self):
+        resources.game_manager.affectShipHp(self.RESTORE_SHIP_HP)
 

@@ -13,7 +13,6 @@ class CompartmentPackage:
 
         file_name = None
         if compType == "weapon":
-
             self.compartment.use = self.compartment.typeWeaponUse
             file_name = "cannon.png"
             
@@ -21,6 +20,7 @@ class CompartmentPackage:
             file_name = "shield.png"
 
         elif compType == "health":
+            self.compartment.use = self.compartment.typeHealthUse
             file_name = "health.png"
 
         elif compType == "engine":
