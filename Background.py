@@ -31,7 +31,7 @@ class Background:
         self.progress_red = resources.all_sprites["progressRed.png"]
         self.house = resources.all_sprites["house.png"]
         
-        self.font_size = 100
+        self.font_size = 70
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
         
         self.status_bar_font_size = 30
@@ -71,7 +71,7 @@ class Background:
         else:
             self.sky = self.moon
 
-        self.time_text = '{:02d}:{:02d}'.format(resources.game_manager.time.hour, resources.game_manager.time.minute)
+        self.time_text = str(resources.game_manager.time)
 
         for i in range(len(self.cloud_list[0])):
             self.cloud_list[0][i][0] -= self.cloud_list[0][i][2]
@@ -92,6 +92,8 @@ class Background:
         self.draw_glow((10 - 100, 200 - 100))
         
         self.screen.blit(self.font.render(self.time_text, True, pygame.Color(255, 255, 255)), (120, 0))
+        self.screen.blit(self.font.render(resources.game_manager.time.time_suffix, True, pygame.Color(255, 255, 255)), (320, 0))
+
         for item in range(len(self.sidebar)):
             self.screen.blit(self.sidebar[item], (10, 100*item))
          

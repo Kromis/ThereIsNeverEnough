@@ -4,9 +4,11 @@ class Time:
 
     MS_PER_MINUTE = 300
 
-    def __init__(self, hour = 12, minute = 0):
+    def __init__(self, hour = 6, minute = 0):
         self.hour = hour
         self.minute = minute
+        
+        self.time_suffix = "pm"
 
         self.next_update = pygame.time.get_ticks() + Time.MS_PER_MINUTE
 
@@ -37,13 +39,22 @@ class Time:
     def increment_hour(self):
         self.hour += 1
 
+        if self.hour == 12:
+            self.change_time_suffix()
+
         if self.hour == 13:
             self.hour = 1
 
         if self.eventListener != None and self.eventHour == self.hour:
             self.eventListener.toggleDay()
 
-
+    def change_time_suffix(self):
+        if self.time_suffix == "pm":
+            self.time_suffix = "am"
+        else:
+            self.time_suffix = "pm"
+            
+            
     def __str__(self):
         return '{:02d}:{:02d}'.format(self.hour, self.minute)
 
