@@ -12,10 +12,11 @@ class Enemy:
         self.delay = delay
         self.delayCounter = 0
         self.type = ''
+        self.alive = True
 
     def update(self):
         if (self.hp <= 0):
-            pass
+            self.alive = False
             #print('Dead')
             #print('Updating')
         self.delayCounter += 1
@@ -23,9 +24,15 @@ class Enemy:
             self.delayCounter = 0
             return True
         return False
+
+    def draw(self):
+        pass
         
     def attack(self, thing):
         thing.hp -= self.damage
 
     def take_damage(self, damage):
         self.hp -= damage
+
+    def is_dead(self):
+        return not self.alive

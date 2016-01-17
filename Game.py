@@ -1,22 +1,19 @@
 import pygame
-import random
 from Time import Time
+from MonsterList import MonsterList
 from CompartmentPackage import *
 from Enemy import *
 import Console
+import random
 
 class Game:
 
-    AVG_ENCOUNTER_TIME = 10000 #10 seconds
-    ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
-    
     def __init__(self, screen):
         self.screen = screen
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
         self.packageSelections = [ None, None, None ]
-        self.allEnemies = [ None, None, None ]
         self.attackablePackageNames = {}
 
         self.shipHp = 100
@@ -29,24 +26,19 @@ class Game:
         self.time.setToggleDayListener(self, '6:00')
         self.day = True
 
-        self.updateTimeBetweenEncounters()
-        self.previousTime = pygame.time.get_ticks()
+        self.monsterList = MonsterList(self)
 
     def addPackage(self, name, compType, position):
         package = CompartmentPackage(self.screen, compType, position)
         self.allPackages[name] = package
         self.activeRegions[package.get_corners()] = name
         self.allPackageNames.append(name)
+
     def initializePackages(self):
         self.addPackage("Weapon", "weapon", (251, 521))
         self.addPackage("Weapon2", "weapon", (351, 521))
         self.addPackage("Weapon3", "weapon", (451, 521))
         self.addPackage("Weapon4", "weapon", (551, 521))
-
-    def spawnEnemy(self):
-        if None in self.allEnemies:
-            self.allEnemies.insert(0, Enemy())
-            self.allEnemies.pop()
 
     def click(self, position):
         for region in self.activeRegions:
@@ -73,45 +65,24 @@ class Game:
     def update(self):
         # update stuff
         self.time.update()
-        self.randomEncounter()
         for name in self.allPackages:            
             active = self.allPackages[name].update(name in self.packageSelections)
             if active:
                 self.attackablePackageNames[name] = True
             elif name in self.attackablePackageNames:
                 self.attackablePackageNames.pop(name, None)
-        for enemy in self.allEnemies:
-            if enemy == None:
-                break
-            attack = enemy.update()
-            if attack:
-                self.enemyAttack()
+        self.monsterList.update()
 
         # draw stuff
         for p in self.allPackages:
             self.allPackages[p].draw()
-        for enemy in self.allEnemies:
-            pass
-            #draw enemy
+        self.monsterList.draw()
         self.console.draw()
+        
 
     def toggleDay(self):
         self.day = not self.day
         print("DAY" if self.day else "NIGHT")
-
-    def updateTimeBetweenEncounters(self):
-        self.timeBetweenEncounters = Game.AVG_ENCOUNTER_TIME + \
-                                    random.randint(-Game.ENCOUNTER_TIME_VARIANCE, \
-                                                   Game.ENCOUNTER_TIME_VARIANCE)
-
-        
-    def randomEncounter(self):
-        now = pygame.time.get_ticks()
-        if now - self.previousTime >= self.timeBetweenEncounters:
-            self.previousTime = now
-            print("ENCOUNTER")
-            self.updateTimeBetweenEncounters()
-            self.spawnEnemy()
 
     def enemyAttack(self):
         dmg = random.randint(10, 15)
