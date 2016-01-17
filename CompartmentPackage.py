@@ -2,21 +2,45 @@ from Compartment import *
 from Draw_Comp import *
 
 class CompartmentPackage:
+
     def __init__(self, screen, compType, position):
         self.type = compType
         self.GUI = None #DrawObject
+
         self.compartment = Compartment()
         self.screen = screen
-        
+
+
+        file_name = None
         if compType == "weapon":
-            # bind comp.use() to attacking enemy
-            self.GUI = Draw_Comp("cannon.png", self.screen, position)
+
+            self.compartment.use = self.compartment.typeWeaponUse
+            file_name = "cannon.png"
+            
+        elif compType == "shield":
+            file_name = "shield.png"
+
+        elif compType == "health":
+            file_name = "health.png"
+
+        elif compType == "engine":
+            file_name = "engine.png"
+
+        elif compType == "light":
+            file_name = "light.png"
+
+        self.GUI = Draw_Comp(file_name, self.screen, position)
 
     def update(self, selected):
         self.compartment.update()
+        return self.active()
 
     def draw(self):
-        self.GUI.draw(self.compartment.selected, not self.compartment.active)
+
+        self.GUI.draw(self.compartment.selected, not self.compartment.active, self.compartment)
+
+    def attacked(self, dmg):
+        self.compartment.drain(dmg)
     
     # Getters
     def selected(self):
