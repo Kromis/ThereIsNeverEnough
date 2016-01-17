@@ -7,7 +7,7 @@ class Background:
         self.screen = resources.screen
         
         self.background = resources.all_sprites["background.png"]
-        self.ship = resources.all_sprites["ship.png"]
+        self.ship = resources.all_sprites["ship2.png"]
         self.clock = resources.all_sprites["clock.png"]
         self.health = resources.all_sprites["health.png"]
         self.glow = resources.all_sprites["glow.png"]
@@ -15,9 +15,9 @@ class Background:
         self.light = resources.all_sprites["light.png"]
         self.moon = resources.all_sprites["moon.png"]
         self.sun = resources.all_sprites["sun.png"]
-        self.attack = resources.all_sprites["cannon.png"]
-        self.engine = resources.all_sprites["engine.png"]
-        self.power = resources.all_sprites["engine.png"]
+##        self.attack = resources.all_sprites["cannon.png"]
+##        self.engine = resources.all_sprites["engine.png"]
+        self.power = resources.all_sprites["lightbulb.png"]
         self.status_green = resources.all_sprites["statusGreen.png"]
         self.status_red = resources.all_sprites["statusRed.png"]
         self.sky = self.sun
@@ -26,7 +26,7 @@ class Background:
         self.font_size = 100
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
         
-        self.sidebar = [self.clock, self.engine, self.health, self.engine, self.attack]     
+        self.sidebar = [self.clock, self.power, self.health]  
         self.cloud_list = self.clouds()
 
     def clouds(self):
@@ -77,6 +77,8 @@ class Background:
         for item in range(len(self.sidebar)):
             self.screen.blit(self.sidebar[item], (10, 100*item))
             
-            if item != 0:
-                self.screen.blit(self.status_red, (110, 50 + 100*item))
-                self.screen.blit(self.status_green, (110, 50 + 100*item))
+        self.screen.blit(self.status_red, (110, 50 + 100))
+        self.screen.blit(self.status_green, (110, 50 + 100), (0, 0, resources.game_manager.ship_health*2, 20))
+
+        self.screen.blit(self.status_red, (110, 50 + 200))
+        self.screen.blit(self.status_green, (110, 50 + 200), (0, 0, resources.game_manager.ship_power*2, 20))

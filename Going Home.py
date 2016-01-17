@@ -29,7 +29,7 @@ class GoingHome:
 
                     if pygame.mouse.get_pressed()[0]:
                         resources.game_manager.click(pygame.mouse.get_pos())
-                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
+##                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
                 
                 self.background.update()
                 self.background.draw()

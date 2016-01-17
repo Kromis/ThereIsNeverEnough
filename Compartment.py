@@ -37,5 +37,5 @@ class Compartment:
             self.active = False
 
     def use(self):
-        print("This compartment is doing hard work")
+##        print("This compartment is doing hard work")
         pass

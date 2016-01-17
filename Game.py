@@ -17,6 +17,9 @@ class Game:
         self.initializePackages()
         self.console = Console.Console(self.screen) 
 
+        self.ship_health = 30
+        self.ship_power = 100
+
         self.time = Time()
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
@@ -31,9 +34,9 @@ class Game:
         self.activeRegions[package.get_corners()] = name
     
     def initializePackages(self):
-        self.addPackage("Weapon", "weapon", (251, 521))
-        #self.addPackage("Weapon", "weapon", (351, 521))
-        #self.addPackage("Weapon", "weapon", (451, 521))
+        self.addPackage("Weapon", "weapon", (580, 470))
+        self.addPackage("Weapon 2", "weapon", (700, 470))
+        self.addPackage("Shield", "shield", (200, 500))
 
     def click(self, position):
         for region in self.activeRegions:
