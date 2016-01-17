@@ -32,8 +32,7 @@ class Background:
         self.house = resources.all_sprites["house.png"]
 
 
-        self.night = resources.all_sprites["night.png"]
-        self.night.set_alpha(200)
+##        self.night = resources.all_sprites["night.png"]
         
         self.font_size = 100
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
@@ -75,6 +74,8 @@ class Background:
         else:
             self.sky = self.moon
 
+##        self.night.set_alpha(resources.game_manager.night_opacity)
+
         self.time_text = '{:02d}:{:02d}'.format(resources.game_manager.time.hour, resources.game_manager.time.minute)
 
         for i in range(len(self.cloud_list[0])):
@@ -90,8 +91,8 @@ class Background:
             self.screen.blit(resources.all_sprites[self.cloud_list[0][i][3]], (self.cloud_list[0][i][0], self.cloud_list[0][i][1]))
         self.screen.blit(self.ship, (50, 200))
 
-        if not resources.game_manager.day:
-            self.screen.blit(self.night, (0,0))
+##        if not resources.game_manager.day:
+##            self.screen.blit(self.night, (0,0))
 
         
         self.draw_glow((self.sky_position[0] - 50, self.sky_position[1] - 50))

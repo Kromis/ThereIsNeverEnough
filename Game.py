@@ -23,17 +23,21 @@ class Game:
         self.ship_reload = 0
         self.SHIP_MAX_PROGRESS = 500
         self.ship_progress = 0
+        self.night_opacity = 200
+
+        self.cannon_accuracy = 3
         
-        self.initializePackages()
         self.console = Console.Console(self.screen) 
         
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
         self.day = False
-
+        self.night = resources.all_sprites["night.png"]
 
         self.monsterList = MonsterList()
+
+        self.initializePackages()
 
     def __init__(self):
         self.reset()
@@ -53,6 +57,7 @@ class Game:
         self.addPackage("Health 2", "health", (490, 500))
         self.addPackage("Shield", "shield", (250, 500))
         self.addPackage("Engine", "engine", (100, 500))
+        self.addPackage("Light", "light", (443, 375))
 
     def click(self, position):
         for region in self.activeRegions:
@@ -75,7 +80,7 @@ class Game:
         # update stuff
         self.time.update()
         self.console.get_message(self.messages)
-
+        
         if self.day:
             if (self.ship_power < self.MAX_SHIP_POWER):
                 self.ship_power += 2
@@ -83,17 +88,25 @@ class Game:
         for name in self.allPackages:            
             self.allPackages[name].update(name)
 
+        self.night.set_alpha(self.night_opacity)
+
         self.monsterList.update()
 
         # draw stuff
         for p in self.allPackages:
-            self.allPackages[p].draw()
+            if p != "Light":
+                self.allPackages[p].draw()
+        self.allPackages["Light"].draw()
         self.monsterList.draw()
         self.console.draw()
         
 
     def toggleDay(self):
         self.day = not self.day
+        if self.day:
+            self.cannon_accuracy = 1
+        else:
+            self.cannon_accuracy = 3
         print("DAY" if self.day else "NIGHT")
 
 
