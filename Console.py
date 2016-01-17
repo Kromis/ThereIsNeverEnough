@@ -24,6 +24,9 @@ class Console:
 		self.message_list.append('7 Incoming new message')
 		self.message_list.append('8 Incoming new message')
 		self.message_list.append('9 Incoming new message')
+		self.message_list.append('9 Incoming new message')
+		self.message_list.append('9 Incoming new message')
+		self.message_list.append('9 Incoming new message')
 		
 	def draw(self):
 		#self.timestamp = '[' + '{:02d}:{:02d}'.format(resources.game_manager.time.hour, resources.game_manager.time.minute) + '] '

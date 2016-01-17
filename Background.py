@@ -18,6 +18,7 @@ class Background:
 ##        self.attack = resources.all_sprites["cannon.png"]
 ##        self.engine = resources.all_sprites["engine.png"]
         self.power = resources.all_sprites["lightbulb.png"]
+        self.cannon = resources.all_sprites["cannon.png"]
         self.status_green = resources.all_sprites["statusGreen.png"]
         self.status_red = resources.all_sprites["statusRed.png"]
         self.sky = self.sun
@@ -26,7 +27,7 @@ class Background:
         self.font_size = 100
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
         
-        self.sidebar = [self.clock, self.health, self.power]  
+        self.sidebar = [self.clock, self.health, self.power, self.cannon]  
         self.cloud_list = self.clouds()
 
     def clouds(self):
@@ -80,3 +81,7 @@ class Background:
 
         self.screen.blit(self.status_red, (110, 50 + 200))
         self.screen.blit(self.status_green, (110, 50 + 200), (0, 0, resources.game_manager.ship_power*2, 20))
+
+        self.screen.blit(self.status_red, (110, 50 + 300))
+        self.screen.blit(self.status_green, (110, 50 + 300), (0, 0, resources.game_manager.ship_reload*2, 20))
+

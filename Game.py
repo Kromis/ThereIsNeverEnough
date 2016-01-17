@@ -19,11 +19,12 @@ class Game:
 
         self.shipHp = 500
         self.ship_power = 500
+        self.ship_reload = 0
         
         self.initializePackages()
         self.console = Console.Console(self.screen) 
 
-
+        
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')

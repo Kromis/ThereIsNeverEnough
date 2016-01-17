@@ -47,15 +47,30 @@ class Compartment:
         if self.hp == self.MIN_HP:
             self.active = False
 
+        if self.selected:
+            resources.game_manager.ship_reload += 1
+
     def use(self):
         pass
 
     def typeWeaponUse(self):
-        if self.cannonCooldown > self.MAX_CANNON_COOLDOWN and self.hp > self.FIRING_HP_DECREASE:
-            self.cannonCooldown = 0
-            dmg = random.randint(20, 30)
-            attacked = resources.game_manager.cannonAttack(dmg)
-            if attacked:
-                self.hp -= self.FIRING_HP_DECREASE
+        if len(resources.game_manager.monsterList.list) > 0:
+            
+            if resources.game_manager.ship_reload >= 100:
+                dmg = random.randint(20, 30)
+
+                if random.randint(1, 10) > 1:
+                    resources.game_manager.cannonAttack(dmg)
+                    resources.game_manager.ship_reload = 0
+                
+
+
+        
+##        if self.cannonCooldown > self.MAX_CANNON_COOLDOWN and self.hp > self.FIRING_HP_DECREASE:
+##            self.cannonCooldown = 0
+##            dmg = random.randint(20, 30)
+##            attacked = resources.game_manager.cannonAttack(dmg)
+##            if attacked:
+##                self.hp -= self.FIRING_HP_DECREASE
             
 
