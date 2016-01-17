@@ -13,12 +13,12 @@ class Draw_Comp:
         self.disable.set_alpha(200)
         self.border = resources.all_sprites["component.png"]
         
-    def draw(self, glowing, disabled, compartment):
+    def draw(self, glowing, disabled, compartment, compartment_max_hp):
         if glowing:
             self.screen.blit(self.glow, self.position)
             
         self.screen.blit(self.red, (self.position[0] + 25, self.position[1] + 25))
-        self.screen.blit(self.green, (self.position[0] + 25, self.position[1] + 25 + (100 -(100*compartment.hp/100))), (0, 0, 100, 100*compartment.hp/100))
+        self.screen.blit(self.green, (self.position[0] + 25, self.position[1] + 25 + 100-100*(compartment.hp/compartment_max_hp)), (0, 0, 100, 100*(compartment.hp/compartment_max_hp)))
 
         self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
 
@@ -30,4 +30,5 @@ class Draw_Comp:
         
 
     def get_corners(self):
-        return (self.position, (self.position[0] + 100, self.position[1] + 100))
+        glowOffset = 25
+        return ((self.position[0] + glowOffset, self.position[1] + glowOffset), (self.position[0] + glowOffset + 100, self.position[1] + glowOffset + 100))

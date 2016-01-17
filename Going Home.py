@@ -25,7 +25,7 @@ class GoingHome:
                 if (event.type == pygame.QUIT):
                     resources.main_loop_running = False
 
-                if pygame.mouse.get_pressed()[0]:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     resources.game_manager.click(pygame.mouse.get_pos())
                     ##                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
 
