@@ -20,11 +20,21 @@ class Background:
         self.status_green = resources.all_sprites["statusGreen.png"]
         self.status_red = resources.all_sprites["statusRed.png"]
         self.sidebar_border = resources.all_sprites["status.png"]
+        self.hour_hand = resources.all_sprites["clockHour.png"]
+        self.min_hand = resources.all_sprites["clockMinute.png"]
+        
         self.sky = self.sun
         self.sky_position = (resources.width/3, 0)
         
         self.font_size = 100
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
+        
+        self.status_bar_font_size = 30
+        self.status_bar_font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.status_bar_font_size)
+        self.status_bar_font_size_small = 20
+        self.status_bar_font_small = pygame.font.Font(pygame.font.match_font('cooperblack'), self.status_bar_font_size_small)
+
+        
         
         self.sidebar = [self.clock, self.health, self.power, self.cannon]  
         self.cloud_list = self.clouds()
@@ -71,33 +81,50 @@ class Background:
             self.screen.blit(resources.all_sprites[self.cloud_list[0][i][3]], (self.cloud_list[0][i][0], self.cloud_list[0][i][1]))
         self.screen.blit(self.ship, (50, 200))
         
-        if self.sky == self.sun:
-            self.screen.blit(self.glow, (self.sky_position[0] - 50, self.sky_position[1] - 50))
+        self.draw_glow((self.sky_position[0] - 50, self.sky_position[1] - 50))
         self.screen.blit(self.sky, self.sky_position)
 
-        if self.sky == self.sun:
-            self.screen.blit(self.glow, (10 - 100, 200 - 100))
+        self.draw_glow((10 - 100, 200 - 100))
         
         self.screen.blit(self.font.render(self.time_text, True, pygame.Color(255, 255, 255)), (120, 0))
         for item in range(len(self.sidebar)):
             self.screen.blit(self.sidebar[item], (10, 100*item))
          
+        self.draw_clock_hands()
             
         lightbulb_pos = (468, 245)
-        if self.sky == self.sun:
-            self.screen.blit(self.glow, (lightbulb_pos[0] - 100, lightbulb_pos[1] - 100))
+        self.draw_glow((lightbulb_pos[0] - 100, lightbulb_pos[1] - 100))
         self.screen.blit(self.power, lightbulb_pos)
         
-            
         self.screen.blit(self.status_red, (110, 50 + 100))
         self.screen.blit(self.status_green, (110, 50 + 100), (0, 0, 200*resources.game_manager.shipHp/resources.game_manager.MAX_SHIP_HP, 20))
         self.screen.blit(self.sidebar_border, (110, 50 + 100))
+        self.draw_status_bar_text('Health', '{}/{}'.format(resources.game_manager.shipHp, resources.game_manager.MAX_SHIP_HP), (110, 10 + 100)) 
+
 
         self.screen.blit(self.status_red, (110, 50 + 200))
         self.screen.blit(self.status_green, (110, 50 + 200), (0, 0, 200*resources.game_manager.ship_power/resources.game_manager.MAX_SHIP_POWER, 20))
-        self.screen.blit(self.sidebar_border, (110, 50 + 200))
+        self.screen.blit(self.sidebar_border, (110, 50 + 200))        
+        self.draw_status_bar_text('Power', '{}/{}'.format(resources.game_manager.ship_power, resources.game_manager.MAX_SHIP_POWER), (110, 10 + 200)) 
+
 
         self.screen.blit(self.status_red, (110, 50 + 300))
         self.screen.blit(self.status_green, (110, 50 + 300), (0, 0, resources.game_manager.ship_reload*2, 20))
         self.screen.blit(self.sidebar_border, (110, 50 + 300))
+        self.draw_status_bar_text('Weapon', '{}/{}'.format(resources.game_manager.ship_reload, 100),(110, 10 + 300)) 
+
+
+    def draw_clock_hands(self):
+        self.screen.blit(self.hour_hand, (10, 0))
+        self.screen.blit(self.min_hand, (10, 0))
+        
+    def draw_glow(self, position):
+        if self.sky == self.sun:
+            self.screen.blit(self.glow, position)
+            
+    def draw_status_bar_text(self, name, value, position):
+        self.screen.blit(self.status_bar_font.render(name, True, pygame.Color(255, 255, 255)), position)
+        self.screen.blit(self.status_bar_font_small.render(value, True, pygame.Color(255, 255, 255)), (position[0] + 10, position[1] + 37))
+
+
 
