@@ -20,7 +20,9 @@ class Compartment:
         self.selected = True
     def deselect(self):
         self.selected = False
-    
+
+    def toggleSelect(self):
+        self.selected = not self.selected
 
     def drain(self, dmg=0):
         self.hp -= dmg
