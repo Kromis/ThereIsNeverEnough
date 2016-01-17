@@ -1,5 +1,4 @@
 from Time import Time
-from CompartmentPackage import *
 
 
 class Game:

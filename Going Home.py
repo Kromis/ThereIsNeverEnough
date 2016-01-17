@@ -1,9 +1,10 @@
 import os, sys
 import pygame
 import resources
+import Game
 from Background import Background
-from Game import *
 from Draw_Comp import Draw_Comp
+
 
 from pygame.locals import *
 
@@ -18,8 +19,9 @@ class GoingHome:
             image.convert_alpha()
             
         self.background = Background(self.screen)
-
+        self.game = Game.Game()
         self.gameState = "GAME"
+        
         # move this later into the loop
         self.game = Game(self.screen)
     
@@ -32,12 +34,14 @@ class GoingHome:
                     if (event.type == pygame.QUIT):
                         resources.main_loop_running = False
 
-                self.game.update()
+                    if pygame.mouse.get_pressed()[0]:
+                        self.game.click(pygame.mouse.get_pos())
+                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
                 
                 self.background.cloud_update()
                 self.background.draw()
-                Draw_Comp("cannon.png", self.screen, (500, 200)).draw()
-
+                test = Draw_Comp("shield.png", self.screen, (200, 500))
+                test.draw(False, False)
 
             pygame.display.update()
         pygame.quit()
