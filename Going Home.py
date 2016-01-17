@@ -9,20 +9,20 @@ from pygame.locals import *
 
 class GoingHome:
     def __init__(self):
-        pygame.init()
         self.width = resources.width
         self.height = resources.height
-        self.screen = pygame.display.set_mode((self.width, self.height))
+##        self.screen = pygame.display.set_mode((self.width, self.height))
 
         for image in resources.all_sprites.values():
             image.convert_alpha()
             
-        self.background = Background(self.screen)
-        
+        self.background = Background()
+##        self.game_manager = resources.game_manager
         self.gameState = "GAME"
         
         # move this later into the loop
-        self.game = Game(self.screen)
+##        resources.game_manager = Game(resources.screen)
+##        self.game = Game(self.screen)
     
     def game_loop(self):
         while resources.main_loop_running:
@@ -34,7 +34,7 @@ class GoingHome:
                         resources.main_loop_running = False
 
                     if pygame.mouse.get_pressed()[0]:
-                        self.game.click(pygame.mouse.get_pos())
+                        resources.game_manager.click(pygame.mouse.get_pos())
                         print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
                 
                 self.background.cloud_update()
@@ -42,7 +42,7 @@ class GoingHome:
                 #test = Draw_Comp("shield.png", self.screen, (200, 500))
                 #test.draw(False, False)
 
-                self.game.update()
+                resources.game_manager.update()
 
             pygame.display.update()
         pygame.quit()
