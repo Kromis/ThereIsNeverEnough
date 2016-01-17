@@ -18,8 +18,8 @@ class Game:
 
         self.MAX_SHIP_HP = 100
         self.shipHp = 100
-        self.MAX_SHIP_POWER = 500
-        self.ship_power = 500
+        self.MAX_SHIP_POWER = 1400
+        self.ship_power = 1400
         self.ship_reload = 0
         self.SHIP_MAX_PROGRESS = 500
         self.ship_progress = 0
