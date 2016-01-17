@@ -49,6 +49,7 @@ class MonsterList:
         if len(self.list) > 0:
             print("Attack!")
             active = self.list[-1].take_damage(dmg)
+            
             if not active:
                 print("Enemy died already")
                 self.list.pop()

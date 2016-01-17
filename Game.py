@@ -107,7 +107,9 @@ class Game:
                     return
             name = random.choice(list(self.attackablePackageNames.keys()))
             self.allPackages[name].attacked(dmg)
+            self.messages.append(["Monster", name, dmg])
             print("Compartment '{}' is attacked!".format(name))
+            
     def attackShip(self, dmg):
         self.shipHp -= dmg
         if self.shipHp <= 0:

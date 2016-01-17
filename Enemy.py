@@ -32,7 +32,6 @@ class Enemy:
         
     def attack(self):
         damage = random.randint(10, 15)
-        resources.game_manager.messages.append(damage)
         return damage
 
     def take_damage(self, damage):
