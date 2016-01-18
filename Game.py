@@ -125,6 +125,10 @@ class Game:
 
         self.monsterList.draw()
         self.allPackages["Light"].draw()
+
+        if self.ship_progress == self.SHIP_MAX_PROGRESS/2:
+            self.messages.append([None, None, "Flavor", "You're halfway home... You can do this."])
+
         self.console.draw()
         
         self.screenShaker.update()
@@ -147,11 +151,21 @@ class Game:
                 self.screenShaker.shake()
                 self.allPackages[shieldName].attacked(dmg* 3)
                 self.affectShipHp(-dmg/3)
+                for comp in self.allPackages:
+                    if self.allPackages[comp].compartment.active == False and not self.allPackages[comp].compartment.currentlyDisabled:
+                        self.allPackages[comp].compartment.currentlyDisabled = True
+                        comp_type = self.allPackages[comp].compartment.compType
+                        first_letter = comp_type[0].upper()
+                        self.messages.append([None, None, "Flavor", first_letter + comp_type[1:] + " has been disabled."])
                 return
 
         self.screenShaker.shake(6, 2000)
-        self.text = "Your ship is damaged! Current health left: {}".format(int(self.shipHp))
-        self.messages.append(["None", "None", "Damaged", self.text])
+        if self.shipHp < self.MAX_SHIP_HP/4:
+            self.text = "Your ship is in critical health.".format(int(self.shipHp))
+            self.messages.append(["None", "None", "Damaged", self.text])
+
+
+
 ##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
 ##        self.messages.append(["None", "None", "Damaged", self.text])
         #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
@@ -161,7 +175,14 @@ class Game:
         for name in self.allPackages:
             dmg += random.randint(-5, 5)
             self.allPackages[name].attacked(dmg)
-            
+
+        for comp in self.allPackages:
+            if self.allPackages[comp].compartment.active == False and not self.allPackages[comp].compartment.currentlyDisabled:
+                self.allPackages[comp].compartment.currentlyDisabled = True
+                comp_type = self.allPackages[comp].compartment.compType
+                first_letter = comp_type[0].upper()
+                self.messages.append([None, None, "Flavor", first_letter + comp_type[1:] + " has been disabled."])
+                
     def affectShipHp(self, value):
         self.shipHp += value
         self.shipHp = max(self.shipHp, 0)
