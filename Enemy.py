@@ -41,7 +41,7 @@ class Enemy:
         if not self.alive:
             if not self.animating:
                 resources.game_manager.monsterList.removeMonster()
-            return 0
+            return False
           
         if (self.hp < 0):
             self.alive = False
