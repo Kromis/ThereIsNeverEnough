@@ -80,7 +80,7 @@ class Compartment:
     def checkActive(self):
         if self.hp == self.MIN_HP:
             self.active = False
-    
+
         if self.selected and self.compType == 'weapon':
             resources.game_manager.ship_reload += 2
             
@@ -114,7 +114,7 @@ class Compartment:
 
     def typeEngineUse(self):
         if self.active:
-            resources.game_manager.ship_progress += 1
+            resources.game_manager.ship_progress += 2
             if resources.game_manager.ship_progress >= resources.game_manager.SHIP_MAX_PROGRESS:
                 resources.game_manager.ship_progress =  resources.game_manager.SHIP_MAX_PROGRESS
 

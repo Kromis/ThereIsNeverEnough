@@ -65,7 +65,7 @@ class Game:
         self.addPackage("Weapon 2", "weapon", (708, 470))
         self.addPackage("Weapon", "weapon", (588, 470))
         self.addPackage("Health", "health", (468, 500))
-        self.addPackage("Engine 2", "engine", (228, 500))
+        self.addPackage("Shield 2", "shield", (228, 500))
         self.addPackage("Shield", "shield", (348, 500))
         self.addPackage("Engine", "engine", (108, 500))
         self.addPackage("Light", "light", (443, 375))
@@ -99,7 +99,7 @@ class Game:
         
         if self.day:
             if (self.ship_power < self.MAX_SHIP_POWER):
-                self.ship_power += 5
+                self.ship_power += 5.5
 
         for name in self.allPackages:
             self.allPackages[name].update(name)
