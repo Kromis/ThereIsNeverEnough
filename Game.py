@@ -37,6 +37,7 @@ class Game:
         #self.cannon_accuracy = 3
         
         self.console = Console.Console(self.screen)
+        self.addMessage("Once upon there was a woman named Wax Chug da Gwad. She had a solar powered ship. However, she was far from home and the solar panels sucked. And tentacle monsters appeared. Help Wax Chug get home.")
         
         resources.time = Time()
         self.time = resources.time
