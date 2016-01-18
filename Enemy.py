@@ -42,7 +42,7 @@ class Enemy:
         return False
 
     def draw(self):
-        self.screen.blit(self.sprite, self.position)
+        resources.screen_copied.blit(self.sprite, self.position)
         
     def attack(self):
         damage = random.randint(10, 15)
