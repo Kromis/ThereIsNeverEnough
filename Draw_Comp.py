@@ -31,7 +31,7 @@ class Draw_Comp:
         if not resources.game_manager.day:
             if self.file == "light.png":
                 resources.screen_copied.blit(resources.game_manager.night, (0, 0))
-
+                
         if not disabled:
             self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
 

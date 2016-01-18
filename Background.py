@@ -30,9 +30,6 @@ class Background:
         self.progress_green = resources.all_sprites["progressGreen.png"]
         self.progress_red = resources.all_sprites["progressRed.png"]
         self.house = resources.all_sprites["house.png"]
-
-
-##        self.night = resources.all_sprites["night.png"]
         
         self.font_size = 70
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
@@ -48,7 +45,7 @@ class Background:
         self.cloud_list = self.clouds()
 
     def clouds(self):
-        self.cloud_amount = random.randint(3,8)
+        self.cloud_amount = random.randint(2,4)
 
         self.cloud_list = []
         self.cloud_images = []
@@ -127,9 +124,9 @@ class Background:
         self.screen.blit(self.sidebar_border, (110, 50 + 300))
         self.draw_status_bar_text('Weapon', '{}/{}'.format(resources.game_manager.ship_reload, 100),(110, 10 + 300)) 
 
-        self.screen.blit(self.progress_border, (50, 680))
         self.screen.blit(self.progress_red, (50, 680))
         self.screen.blit(self.progress_green, (50, 680), (0, 0, 1150*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
+        self.screen.blit(self.progress_border, (50, 680))
 
         self.screen.blit(self.house, (1150, 630))
 

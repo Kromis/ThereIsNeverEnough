@@ -42,6 +42,10 @@ class Enemy:
         return False
 
     def draw(self):
+        if not resources.game_manager.day:
+            print(resources.game_manager.allPackages["Light"].selected)
+            if resources.game_manager.allPackages["Light"].compartment.selected:
+                resources.screen_copied.blit(resources.all_sprites["glow.png"], (self.position[0], self.position[1] - 100))
         resources.screen_copied.blit(self.sprite, self.position)
         
     def attack(self):
