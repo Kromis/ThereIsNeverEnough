@@ -17,6 +17,7 @@ class GoingHome:
         
     def game_loop(self):
         clickRect = pygame.Rect(400, 250, 400, 400)
+        helped = False
         while resources.main_loop_running:
             mouse_pressed = False
             
@@ -32,12 +33,23 @@ class GoingHome:
 
             if resources.state == "START":
                 if mouse_pressed and clickRect.collidepoint(pygame.mouse.get_pos()):
-                    resources.state = "GAME"
+                    if helped:
+                        resources.state = "GAME"
+                    else:
+                        resources.state = "HELP"
                     resources.game_manager.reset()
 
                 start = resources.all_sprites["start.png"]
                 resources.screen.blit(start, (0,0))
-                pass
+
+            elif resources.state == "HELP":
+                helped = True
+                if mouse_pressed: # and clickRect.collidepoint(pygame.mouse.get_pos()):
+                    resources.state = "GAME"
+                    resources.game_manager.reset()
+
+                start = resources.all_sprites["example.png"]
+                resources.screen.blit(start, (0,0))
 
             elif resources.state == "GAME":
                 #test = Draw_Comp("shield.png", self.screen, (200, 500))
@@ -50,7 +62,6 @@ class GoingHome:
 
                 gameOver = resources.all_sprites["gameOver.png"]
                 resources.screen.blit(gameOver, (0,0))
-                pass
 
             elif resources.state == "WIN":
                 if mouse_pressed and clickRect.collidepoint(pygame.mouse.get_pos()):
@@ -58,7 +69,6 @@ class GoingHome:
 
                 win = resources.all_sprites["win.png"]
                 resources.screen.blit(win, (0,0))
-                pass
 
             pygame.display.update()
         pygame.quit()
