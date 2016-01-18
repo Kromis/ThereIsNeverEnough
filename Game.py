@@ -172,7 +172,7 @@ class Game:
 ##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
 ##        self.messages.append(["None", "None", "Damaged", self.text])
         #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
-        self.affectShipHp(-dmg*2/3)
+        self.affectShipHp(-dmg * 2)
 
          
         for name in self.allPackages:

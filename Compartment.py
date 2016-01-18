@@ -73,7 +73,7 @@ class Compartment:
         if self.selected:
             if resources.game_manager.ship_power >= 0:
                 if self.compType == "light":
-                    resources.game_manager.ship_power -= .5
+                    resources.game_manager.ship_power -= .25
                 else:
                     resources.game_manager.ship_power -= 1
         self.drain()
