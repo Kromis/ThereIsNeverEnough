@@ -14,7 +14,7 @@ class SoundManager:
             if file.endswith(('.ogg', 'wav')):
                 #print(file)
                 new_sound = pygame.mixer.Sound('Sound/' + file)
-                new_sound.set_volume(0.5)
+                new_sound.set_volume(1)
                 self.all_sounds[file] = new_sound
 
     def playCurrentMusic(self):

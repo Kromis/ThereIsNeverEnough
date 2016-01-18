@@ -3,6 +3,7 @@ import resources
 class Draw_Comp:
     def __init__(self, comp_file_name, screen, position):
         self.screen = screen
+        self.file = comp_file_name
         self.comp = resources.all_sprites[comp_file_name]
         self.position = position
 
@@ -20,13 +21,22 @@ class Draw_Comp:
         self.screen.blit(self.red, (self.position[0] + 25, self.position[1] + 25))
         self.screen.blit(self.green, (self.position[0] + 25, self.position[1] + 25 + 100-100*(compartment.hp/compartment_max_hp)), (0, 0, 100, 100*(compartment.hp/compartment_max_hp)))
 
-        self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
-
-
         self.screen.blit(self.border, (self.position[0] + 25, self.position[1] + 25))
+
+        self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
 
         if disabled:          
             self.screen.blit(self.disable, (self.position[0] + 25, self.position[1] + 25))
+
+        if not resources.game_manager.day:
+            if self.file == "light.png":
+                resources.screen_copied.blit(resources.game_manager.night, (0, 0))
+
+        if not disabled:
+            self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
+
+
+
         
 
     def get_corners(self):

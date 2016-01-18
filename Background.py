@@ -3,8 +3,8 @@ import resources
 import pygame
 
 class Background:
-    def __init__(self):
-        self.screen = resources.screen
+    def __init__(self, game_screen):
+        self.screen = game_screen
         self.background = resources.all_sprites["background.png"]
         
         self.ship = resources.all_sprites["ship2.png"]
@@ -30,8 +30,11 @@ class Background:
         self.progress_green = resources.all_sprites["progressGreen.png"]
         self.progress_red = resources.all_sprites["progressRed.png"]
         self.house = resources.all_sprites["house.png"]
+
+
+##        self.night = resources.all_sprites["night.png"]
         
-        self.font_size = 100
+        self.font_size = 70
         self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
         
         self.status_bar_font_size = 30
@@ -71,7 +74,7 @@ class Background:
         else:
             self.sky = self.moon
 
-        self.time_text = '{:02d}:{:02d}'.format(resources.game_manager.time.hour, resources.game_manager.time.minute)
+        self.time_text = str(resources.game_manager.time)
 
         for i in range(len(self.cloud_list[0])):
             self.cloud_list[0][i][0] -= self.cloud_list[0][i][2]
@@ -85,6 +88,10 @@ class Background:
         for i in range(0, len(self.cloud_list[0])):
             self.screen.blit(resources.all_sprites[self.cloud_list[0][i][3]], (self.cloud_list[0][i][0], self.cloud_list[0][i][1]))
         self.screen.blit(self.ship, (50, 200))
+
+##        if not resources.game_manager.day:
+##            self.screen.blit(self.night, (0,0))
+
         
         self.draw_glow((self.sky_position[0] - 50, self.sky_position[1] - 50))
         self.screen.blit(self.sky, self.sky_position)
@@ -92,6 +99,8 @@ class Background:
         self.draw_glow((10 - 100, 200 - 100))
         
         self.screen.blit(self.font.render(self.time_text, True, pygame.Color(255, 255, 255)), (120, 0))
+        self.screen.blit(self.font.render(resources.game_manager.time.time_suffix, True, pygame.Color(255, 255, 255)), (320, 0))
+
         for item in range(len(self.sidebar)):
             self.screen.blit(self.sidebar[item], (10, 100*item))
          
@@ -118,6 +127,12 @@ class Background:
         self.screen.blit(self.sidebar_border, (110, 50 + 300))
         self.draw_status_bar_text('Weapon', '{}/{}'.format(resources.game_manager.ship_reload, 100),(110, 10 + 300)) 
 
+        self.screen.blit(self.progress_border, (50, 680))
+        self.screen.blit(self.progress_red, (50, 680))
+        self.screen.blit(self.progress_green, (50, 680), (0, 0, 1150*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
+
+        self.screen.blit(self.house, (1150, 630))
+
 
     def draw_clock_hands(self):
         self.screen.blit(self.hour_hand, (10, 0))
@@ -133,9 +148,6 @@ class Background:
 
 
 
-        self.screen.blit(self.progress_border, (50, 680))
-        self.screen.blit(self.progress_red, (50, 680))
-        self.screen.blit(self.progress_green, (50, 680), (0, 0, 200*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
 
-        self.screen.blit(self.house, (1150, 630))
+
 

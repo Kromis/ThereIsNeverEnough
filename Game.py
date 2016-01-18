@@ -5,11 +5,18 @@ from CompartmentPackage import *
 from Enemy import *
 import Console
 import resources
-
+from Time import Time
+from ScreenShaker import *
+from Background import Background
 
 class Game:
     def reset(self):
-        self.screen = resources.screen
+        self.shakeScreen = resources.screen
+        self.screen = self.shakeScreen.copy()
+        resources.screen_copied = self.screen
+        self.background = Background(self.screen)
+        self.screenShaker = ScreenShaker()
+        
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
@@ -23,17 +30,22 @@ class Game:
         self.ship_reload = 0
         self.SHIP_MAX_PROGRESS = 500
         self.ship_progress = 0
+        self.night_opacity = 200
+
+        self.cannon_accuracy = 3
         
-        self.initializePackages()
-        self.console = Console.Console(self.screen) 
+        self.console = Console.Console(self.screen)
         
+        resources.time = Time()
         self.time = resources.time
         #tells Time to call "toggleDay" when 6:00 happens
         self.time.setToggleDayListener(self, '6:00')
-        self.day = True
-
+        self.day = False
+        self.night = resources.all_sprites["night.png"]
 
         self.monsterList = MonsterList()
+
+        self.initializePackages()
 
     def __init__(self):
         self.reset()
@@ -47,10 +59,14 @@ class Game:
             self.allShields.append(name)
 
     def initializePackages(self):
-        self.addPackage("Weapon", "weapon", (580, 470))
-        self.addPackage("Health", "health", (700, 470))
-        self.addPackage("Shield", "shield", (200, 500))
-        self.addPackage("Engine", "engine", (100, 500))
+
+        self.addPackage("Weapon 2", "weapon", (708, 470))
+        self.addPackage("Weapon", "weapon", (588, 470))
+        self.addPackage("Health 2", "health", (468, 500))
+        self.addPackage("Health", "health", (348, 500))
+        self.addPackage("Shield", "shield", (228, 500))
+        self.addPackage("Engine", "engine", (108, 500))
+        self.addPackage("Light", "light", (443, 375))
 
     def click(self, position):
         for region in self.activeRegions:
@@ -65,41 +81,75 @@ class Game:
             if y > region[1][1]:
                 continue
             name = self.activeRegions[region]
-            print(name+" selected :)")
+            #print(name+" selected :)")
             self.allPackages[name].compartment.toggleSelect()
             break
             
     def update(self):
+        self.background.update()
+        self.background.draw()
+    
+    
+    
         # update stuff
         self.time.update()
         self.console.get_message(self.messages)
+        
+        if self.day:
+            if (self.ship_power < self.MAX_SHIP_POWER):
+                self.ship_power += 2
 
-        for name in self.allPackages:            
+        for name in self.allPackages:
             self.allPackages[name].update(name)
 
+        self.night.set_alpha(self.night_opacity)
+
         self.monsterList.update()
+        
+        if self.ship_progress >= self.SHIP_MAX_PROGRESS:
+            resources.state = "WIN"
+            resources.sound_manager.playSound('win.ogg')
+
+        elif self.shipHp <= 0:
+            resources.state = "LOSE"
+            resources.sound_manager.playSound('lose.ogg')
 
         # draw stuff
         for p in self.allPackages:
-            self.allPackages[p].draw()
+            if p != "Light":
+                self.allPackages[p].draw()
+
         self.monsterList.draw()
+        self.allPackages["Light"].draw()
         self.console.draw()
         
+        self.screenShaker.update()
+        self.shakeScreen.blit(self.screen, self.screenShaker.getValue())
 
     def toggleDay(self):
         self.day = not self.day
+        if self.day:
+            self.cannon_accuracy = 1
+        else:
+            self.cannon_accuracy = 3
         print("DAY" if self.day else "NIGHT")
 
 
     def enemyAttack(self, dmg):
+        resources.sound_manager.playSound('tentacle.ogg')
 
         for shieldName in self.allShields:
             if self.allPackages[shieldName].compartment.active:
+                self.screenShaker.shake()
                 self.allPackages[shieldName].attacked(dmg)
                 return
+
+        self.screenShaker.shake(6, 2000)
         self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
         self.messages.append(["None", "None", "Damaged", self.text])
-        print("Your ship is attacked! Current health left: {}".format(self.shipHp))
+##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
+##        self.messages.append(["None", "None", "Damaged", self.text])
+        #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
         self.affectShipHp(-dmg)
 
          
@@ -112,7 +162,8 @@ class Game:
         self.shipHp = max(self.shipHp, 0)
         self.shipHp = min(self.MAX_SHIP_HP, self.shipHp)
         if self.shipHp <= 0:
-            print("You died")
+            pass
+            #print("You died")
 
     def cannonAttack(self, dmg):
         return self.monsterList.attackOldestMonster(dmg)
