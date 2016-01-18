@@ -14,25 +14,35 @@ class Enemy:
         self.delayCounter = 0
         self.type = ''
         self.alive = True
+        self.animating = False
         self.MIN_DMG = 5
         self.MAX_DMG = 8
 
         self.screen = resources.screen
         self.sprite = resources.all_sprites["tentacle.png"]
-        self.position = (resources.width-350, resources.height-200)
-        self.newPos = self.position
-        self.SHIFT = (16,5)
+        self.position = (resources.width-350, resources.height)
+        self.newPos = (resources.width-350, resources.height-200)
+        self.SHIFT = (16,10)
         
     def update(self):
         #gradually shift tentacles
         x = self.position[0]
         y = self.position[1]
-        if self.newPos[0] > self.position[0]:
-            x += self.SHIFT[0]
-        if self.newPos[1] < self.position[1]:
-            y -= self.SHIFT[1]
-        self.position = (x, y)
+        if self.newPos[0] <= self.position[0] and self.newPos[1] >= self.position[1]:
+            self.animating = False
+        else:
+            self.animating = True
+            if self.newPos[0] > self.position[0]:
+                x += self.SHIFT[0]
+            if self.newPos[1] < self.position[1]:
+                y -= self.SHIFT[1]
+            self.position = (x, y)
         
+        if not self.alive:
+            if not self.animating:
+                resources.game_manager.monsterList.removeMonster()
+            return 0
+          
         if (self.hp < 0):
             self.alive = False
             #print('Dead')

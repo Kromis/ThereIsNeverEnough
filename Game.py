@@ -169,6 +169,6 @@ class Game:
             #print("You died")
 
     def cannonAttack(self, dmg):
-        return self.monsterList.attackOldestMonster(dmg)
+        self.monsterList.attackOldestMonster(dmg)
 
 

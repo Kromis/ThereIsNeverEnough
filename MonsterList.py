@@ -24,7 +24,8 @@ class MonsterList:
             #print("NEW MONSTER ENCOUNTER")
             #update monster positions
             for v in range(len(self.list)):
-                self.list[v].newPos = (resources.width-350, resources.height-150-(100*v))
+                self.list[v].newPos = (resources.width-350, resources.height-200-(100*v))
+            return True
 
     def update(self):
         self.randomEncounter()
@@ -48,17 +49,15 @@ class MonsterList:
         # now >= (self.start_spawn + self.game_start_time):
         if now - self.previousTime >= self.timeBetweenEncounters:
             self.previousTime = now
-            self.addMonster(Enemy())
-            resources.game_manager.messages.append([None, None, "Flavor", "Enemy has appeared!"])
+            enemySpawned = self.addMonster(Enemy())
+            if enemySpawned:
+                resources.game_manager.messages.append([None, None, "Flavor", "Enemy has appeared!"])
             self.updateTimeBetweenEncounters()
         
     def attackOldestMonster(self, dmg):
         if len(self.list) > 0:
             #print("Attack!")
             active = self.list[-1].take_damage(dmg)
-            
-            if not active:
-                #print("Enemy died already")
-                self.list.pop()
-            return True
-        return False
+
+    def removeMonster(self):
+        self.list.pop()
