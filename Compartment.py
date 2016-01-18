@@ -16,14 +16,25 @@ class Compartment:
         self.selected = False
         self.DECREASE = decrease
         self.INCREASE = increase
+        self.runoutofpower = False
 
     def select(self):
         self.selected = True
+        resources.sound_manager.playSound('select.ogg')
+        self.runoutofpower = False
+        
     def deselect(self):
         self.selected = False
+        if not self.runoutofpower:
+            resources.sound_manager.playSound('deselect.ogg')
+        self.runoutofpower = True
 
     def toggleSelect(self):
-        self.selected = not self.selected
+        if self.selected:
+            self.deselect()
+        else:
+            self.select()
+    
         if self.compType == "light":
             self.use_light()
 
@@ -49,7 +60,7 @@ class Compartment:
 
     def update(self):
         if resources.game_manager.ship_power <= 0:
-            self.selected = False
+            self.deselect()
     
         if self.selected:
             if resources.game_manager.ship_power >= 1:
@@ -74,10 +85,12 @@ class Compartment:
             
             if resources.game_manager.ship_reload >= 100:
                 dmg = random.randint(20, 30)
+                resources.sound_manager.playSound('cannon.ogg')
+                resources.game_manager.ship_reload = 0
 
+                
                 if random.randint(1, 10) > resources.game_manager.cannon_accuracy:
                     resources.game_manager.cannonAttack(dmg)
-                    resources.game_manager.ship_reload = 0
                 
     def use_light(self):
         if self.selected:

@@ -108,8 +108,11 @@ class Game:
         
         if self.ship_progress >= self.SHIP_MAX_PROGRESS:
             resources.state = "WIN"
+            resources.sound_manager.playSound('win.ogg')
+
         elif self.shipHp <= 0:
             resources.state = "LOSE"
+            resources.sound_manager.playSound('lose.ogg')
 
         # draw stuff
         for p in self.allPackages:
@@ -133,11 +136,17 @@ class Game:
 
 
     def enemyAttack(self, dmg):
+        resources.sound_manager.playSound('tentacle.ogg')
 
         for shieldName in self.allShields:
             if self.allPackages[shieldName].compartment.active:
+                self.screenShaker.shake()
                 self.allPackages[shieldName].attacked(dmg)
                 return
+
+        self.screenShaker.shake(6, 2000)
+        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
+        self.messages.append(["None", "None", "Damaged", self.text])
 ##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
 ##        self.messages.append(["None", "None", "Damaged", self.text])
         print("Your ship is attacked! Current health left: {}".format(self.shipHp))
