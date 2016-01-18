@@ -23,15 +23,20 @@ class Draw_Comp:
 
         self.screen.blit(self.border, (self.position[0] + 25, self.position[1] + 25))
 
+        self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
+
+        if disabled:          
+            self.screen.blit(self.disable, (self.position[0] + 25, self.position[1] + 25))
+
         if not resources.game_manager.day:
             if self.file == "light.png":
                 resources.screen_copied.blit(resources.game_manager.night, (0, 0))
 
-        self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
+        if not disabled:
+            self.screen.blit(self.comp, (self.position[0] + 25, self.position[1] + 25))
 
 
-        if disabled:          
-            self.screen.blit(self.disable, (self.position[0] + 25, self.position[1] + 25))
+
         
 
     def get_corners(self):
