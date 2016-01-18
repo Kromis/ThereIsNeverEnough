@@ -100,6 +100,8 @@ class Game:
         if self.day:
             if (self.ship_power < self.MAX_SHIP_POWER):
                 self.ship_power += 5.5
+                if self.ship_power > self.MAX_SHIP_POWER:
+                    self.ship_power = self.MAX_SHIP_POWER
 
         for name in self.allPackages:
             self.allPackages[name].update(name)
