@@ -60,7 +60,9 @@ class Enemy:
         resources.screen_copied.blit(self.sprite, self.position)
         
     def attack(self):
-        damage = random.randint(self.MIN_DMG, self.MAX_DMG)
+        damage = random.randint(int(self.MIN_DMG), int(self.MAX_DMG))
+        self.MIN_DMG += 0.2
+        self.MAX_DMG += 0.2
         return damage
 
     def take_damage(self, damage):

@@ -16,11 +16,12 @@ class Console:
 		self.message_list = []
 		self.message_list_max_size = 10
 		self.console_pos = (628, 30)
+		self.color = pygame.Color(255, 255, 255)
 		
 	def draw(self):
 		self.screen.blit(self.console_img, self.console_pos)
 		for m in range(len(self.message_list)):
-			self.console_output = self.font.render(self.message_list[m], True, pygame.Color(255, 255, 255))
+			self.console_output = self.font.render(self.message_list[m], True, self.color)
 			self.screen.blit (self.console_output, (self.console_pos[0] + 5, self.console_pos[1] + 10 + (self.font.get_linesize() * m)))
 				
 	#get_message grabs the next object in a message queue

@@ -17,7 +17,6 @@ class GoingHome:
         
     def game_loop(self):
         clickRect = pygame.Rect(400, 250, 400, 400)
-        helped = False
         while resources.main_loop_running:
             mouse_pressed = False
             
@@ -33,10 +32,8 @@ class GoingHome:
 
             if resources.state == "START":
                 if mouse_pressed and clickRect.collidepoint(pygame.mouse.get_pos()):
-                    if helped:
-                        resources.state = "GAME"
-                    else:
-                        resources.state = "HELP"
+
+                    resources.state = "HELP"
                     resources.game_manager.reset()
 
                 start = resources.all_sprites["start.png"]

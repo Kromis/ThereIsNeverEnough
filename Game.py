@@ -129,8 +129,8 @@ class Game:
         if self.ship_progress == self.SHIP_MAX_PROGRESS/2:
             self.messages.append([None, None, "Flavor", "You're halfway home... You can do this."])
         
-        if self.ship_power >= self.MAX_SHIP_POWER/2 -1 and self.ship_power <= self.MAX_SHIP_POWER/2 + 1:
-            self.messages.append([None, None, "Flavor", "Your power is getting low. Be careful."])
+        if self.ship_power >= self.MAX_SHIP_POWER/2 -5 and self.ship_power <= self.MAX_SHIP_POWER/2 + 5:
+            self.messages.append([None, None, "Flavor", "Your power is getting low. Be careful!"])
         
         self.console.draw()
         
@@ -163,8 +163,8 @@ class Game:
                 return
 
         self.screenShaker.shake(6, 2000)
-        if self.shipHp < self.MAX_SHIP_HP/4:
-            self.text = "Your ship is in critical health.".format(int(self.shipHp))
+        if self.shipHp < self.MAX_SHIP_HP/2:
+            self.text = "Your ship is in critical health."
             self.messages.append(["None", "None", "Damaged", self.text])
 
 
