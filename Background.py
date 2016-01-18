@@ -127,6 +127,12 @@ class Background:
         self.screen.blit(self.sidebar_border, (110, 50 + 300))
         self.draw_status_bar_text('Weapon', '{}/{}'.format(resources.game_manager.ship_reload, 100),(110, 10 + 300)) 
 
+        self.screen.blit(self.progress_border, (50, 680))
+        self.screen.blit(self.progress_red, (50, 680))
+        self.screen.blit(self.progress_green, (50, 680), (0, 0, 1150*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
+
+        self.screen.blit(self.house, (1150, 630))
+
 
     def draw_clock_hands(self):
         self.screen.blit(self.hour_hand, (10, 0))
@@ -142,10 +148,6 @@ class Background:
 
 
 
-        self.screen.blit(self.progress_border, (50, 680))
-        self.screen.blit(self.progress_red, (50, 680))
-        self.screen.blit(self.progress_green, (50, 680), (0, 0, 200*(resources.game_manager.ship_progress/resources.game_manager.SHIP_MAX_PROGRESS), 20))
 
-        self.screen.blit(self.house, (1150, 630))
 
 

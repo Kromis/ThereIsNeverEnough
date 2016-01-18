@@ -46,7 +46,7 @@ class MonsterList:
         if now - self.previousTime >= self.timeBetweenEncounters:
             self.previousTime = now
             self.addMonster(Enemy())
-##            resources.game_manager.messages.append(, "encounter)
+            resources.game_manager.messages.append([None, None, "Flavor", "Enemy has appeared!"])
             self.updateTimeBetweenEncounters()
         
     def attackOldestMonster(self, dmg):
