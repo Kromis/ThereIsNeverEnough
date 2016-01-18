@@ -5,16 +5,18 @@ import resources
 
 class MonsterList:
 
-    AVG_ENCOUNTER_TIME = 10000 #15 seconds
-    ENCOUNTER_TIME_VARIANCE = 10000  #+/- 5 seconds
+    AVG_ENCOUNTER_TIME = 10000 #10 seconds
+    ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
 
     MAX_MONSTERS = 2
 
     def __init__(self):
         self.list = []
+        self.game_start_time = pygame.time.get_ticks()
 
         self.updateTimeBetweenEncounters()
         self.previousTime = pygame.time.get_ticks()
+        self.start_spawn = 0
 
     def addMonster(self, monster):
         if len(self.list) < MonsterList.MAX_MONSTERS:
@@ -43,6 +45,7 @@ class MonsterList:
 
     def randomEncounter(self):
         now = pygame.time.get_ticks()
+        # now >= (self.start_spawn + self.game_start_time):
         if now - self.previousTime >= self.timeBetweenEncounters:
             self.previousTime = now
             self.addMonster(Enemy())

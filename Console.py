@@ -13,7 +13,9 @@ class Console:
 		self.message = []
 		self.event = None
 		self.time = None
-		self.message_list = []
+		self.message_list = ["Click the components to power your ship:", "Flashlight: Light your way home", \
+        "Wheel: Progresses ship forward", "Shield: Reduce damage", "Health: Regenerate overall health", "Cannon: Fire at enemies", \
+        "Each component consumes power", "Wait for day time to regenerate power"]
 		self.message_list_max_size = 10
 		self.console_pos = (628, 30)
 		
