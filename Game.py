@@ -128,7 +128,10 @@ class Game:
 
         if self.ship_progress == self.SHIP_MAX_PROGRESS/2:
             self.messages.append([None, None, "Flavor", "You're halfway home... You can do this."])
-
+        
+        if self.ship_power >= self.MAX_SHIP_POWER/2 -1 and self.ship_power <= self.MAX_SHIP_POWER/2 + 1:
+            self.messages.append([None, None, "Flavor", "Your power is getting low. Be careful."])
+        
         self.console.draw()
         
         self.screenShaker.update()
