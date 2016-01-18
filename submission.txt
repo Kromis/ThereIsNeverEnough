@@ -1,0 +1,31 @@
+1. Game
+
+
+2. Roster
+Kevin Wong
+Max "Wax Chug da Gwad" Chung
+Faye Yueh Jao
+Andrew Steven Chau
+Khai Nguyen
+
+3. Description
+Going Home is a resource-based game about navigating a ship back home. Along the way you'll encounter tentacle monsters that attack and damage your ship. You must carefully manage your solar energy to power your different ship components, enabling your weapons and defences to fight the seas.
+
+4. How to Play
+Use the mouse to click on your different ship components to power or depower them:
+Flashlight - Light your way home
+Engine - Progresses ship forward
+Shield - Reduce damage
+Health - Regenerate overall health
+Cannon - Fire at enemies
+
+Make sure your overall health stays above zero, and watch out for your power meter that drains from using components. Wait for day time to regenerate power.
+
+5. Photo
+Temporarily, we have a photo of four of us. We'd like to take another one later when all 5 of are present.
+
+6. Permission
+We don't have a problem with using our game/photo.
+
+7. Presentation
+OK
