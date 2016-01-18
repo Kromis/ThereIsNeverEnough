@@ -85,10 +85,6 @@ class Background:
         for i in range(0, len(self.cloud_list[0])):
             self.screen.blit(resources.all_sprites[self.cloud_list[0][i][3]], (self.cloud_list[0][i][0], self.cloud_list[0][i][1]))
         self.screen.blit(self.ship, (50, 200))
-
-##        if not resources.game_manager.day:
-##            self.screen.blit(self.night, (0,0))
-
         
         self.draw_glow((self.sky_position[0] - 50, self.sky_position[1] - 50))
         self.screen.blit(self.sky, self.sky_position)

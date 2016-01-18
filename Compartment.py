@@ -11,6 +11,7 @@ class Compartment:
         self.MIN_DMG = 30
         self.MAX_DMG = 40
         self.REPAIRED_HP = repairedHp
+        self.deactivated = False
         self.RESTORE_SHIP_HP = 0.2
         self.hp = self.MAX_HP
         if compType == "engine":
@@ -20,6 +21,7 @@ class Compartment:
         self.DECREASE = decrease
         self.INCREASE = increase
         self.runoutofpower = False
+        self.currentlyDisabled = False
 
     def select(self):
         self.selected = True
@@ -56,6 +58,7 @@ class Compartment:
         self.hp = min(self.hp, self.MAX_HP)
         if self.hp >= self.REPAIRED_HP:
             self.active = True
+            self.currentlyDisabled = False
 
     def power(self):
         if self.selected:
@@ -70,7 +73,7 @@ class Compartment:
         if self.selected:
             if resources.game_manager.ship_power >= 0:
                 if self.compType == "light":
-                    resources.game_manager.ship_power -= .5
+                    resources.game_manager.ship_power -= .25
                 else:
                     resources.game_manager.ship_power -= 1
         self.drain()
@@ -80,6 +83,9 @@ class Compartment:
     def checkActive(self):
         if self.hp == self.MIN_HP:
             self.active = False
+            first_letter = self.compType[0].upper()
+            rest_word = self.compType[1:]
+
 
         if self.selected and self.compType == 'weapon':
             resources.game_manager.ship_reload += 2

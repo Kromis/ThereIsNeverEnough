@@ -25,10 +25,10 @@ class Game:
         self.allShields = []
         self.messages = []
 
-        self.MAX_SHIP_HP = 12345678
-        self.shipHp = 12345678
-        self.MAX_SHIP_POWER = 12345678
-        self.ship_power = 12345678
+        self.MAX_SHIP_HP = 100
+        self.shipHp = 100
+        self.MAX_SHIP_POWER = 1000
+        self.ship_power = 1000
         self.ship_reload = 0
         self.SHIP_MAX_PROGRESS = 2000
         self.ship_progress = 0
@@ -65,8 +65,8 @@ class Game:
         self.addPackage("Weapon 2", "weapon", (708, 470))
         self.addPackage("Weapon", "weapon", (588, 470))
         self.addPackage("Health", "health", (468, 500))
-        self.addPackage("we", "weapon", (228, 500))
-        self.addPackage("weer", "weapon", (348, 500))
+        self.addPackage("Shield 2", "shield", (228, 500))
+        self.addPackage("Shield", "shield", (348, 500))
         self.addPackage("Engine", "engine", (108, 500))
         self.addPackage("Light", "light", (443, 375))
 
@@ -106,6 +106,8 @@ class Game:
         if self.day:
             if (self.ship_power < self.MAX_SHIP_POWER):
                 self.ship_power += 5.5
+                if self.ship_power > self.MAX_SHIP_POWER:
+                    self.ship_power = self.MAX_SHIP_POWER
 
         for name in self.allPackages:
             self.allPackages[name].update(name)
@@ -129,6 +131,10 @@ class Game:
 
         self.monsterList.draw()
         self.allPackages["Light"].draw()
+
+        if self.ship_progress == self.SHIP_MAX_PROGRESS/2:
+            self.addMessage("You're halfway home... You can do this.")
+
         self.console.draw()
         
         self.screenShaker.update()
@@ -151,21 +157,32 @@ class Game:
                 self.screenShaker.shake()
                 self.allPackages[shieldName].attacked(dmg* 3)
                 self.affectShipHp(-dmg/3)
+                for comp in self.allPackages:
+                    if self.allPackages[comp].compartment.active == False and not self.allPackages[comp].compartment.currentlyDisabled:
+                        self.allPackages[comp].compartment.currentlyDisabled = True
+                        comp_type = self.allPackages[comp].compartment.compType
+                        first_letter = comp_type[0].upper()
+                        self.addMessage(first_letter + comp_type[1:] + " has been disabled.")
                 return
 
         self.screenShaker.shake(6, 2000)
-        self.text = "Your ship is damaged! Current health left: {}".format(int(self.shipHp))
-        self.addMessage(self.text, ("None", "None", "Damaged"))
-##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
-##        self.messages.append(["None", "None", "Damaged", self.text])
-        #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
-        self.affectShipHp(-dmg*2/3)
+        if self.shipHp < self.MAX_SHIP_HP/2:
+            self.addMessage("Your ship is in critical health.")
+
+        self.affectShipHp(-dmg * 2)
 
          
         for name in self.allPackages:
             dmg += random.randint(-5, 5)
             self.allPackages[name].attacked(dmg)
-            
+
+        for comp in self.allPackages:
+            if self.allPackages[comp].compartment.active == False and not self.allPackages[comp].compartment.currentlyDisabled:
+                self.allPackages[comp].compartment.currentlyDisabled = True
+                comp_type = self.allPackages[comp].compartment.compType
+                first_letter = comp_type[0].upper()
+                self.addMessage(first_letter + comp_type[1:] + " has been disabled.")
+                
     def affectShipHp(self, value):
         self.shipHp += value
         self.shipHp = max(self.shipHp, 0)
