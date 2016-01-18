@@ -5,10 +5,10 @@ import resources
 
 class MonsterList:
 
-    AVG_ENCOUNTER_TIME = 10000 #10 seconds
-    ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
+    AVG_ENCOUNTER_TIME = 10000 #15 seconds
+    ENCOUNTER_TIME_VARIANCE = 10000  #+/- 5 seconds
 
-    MAX_MONSTERS = 3
+    MAX_MONSTERS = 2
 
     def __init__(self):
         self.list = []

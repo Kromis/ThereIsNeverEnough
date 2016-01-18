@@ -10,6 +10,7 @@ class GoingHome:
     def __init__(self):
         self.width = resources.width
         self.height = resources.height
+        #self.clock = pygame.Clock(64)
 
         for image in resources.all_sprites.values():
             image.convert_alpha()

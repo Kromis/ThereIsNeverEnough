@@ -21,7 +21,7 @@ class Enemy:
         self.sprite = resources.all_sprites["tentacle.png"]
         self.position = (resources.width-350, resources.height-200)
         self.newPos = self.position
-        self.SHIFT = (2,5)
+        self.SHIFT = (16,5)
         
     def update(self):
         #gradually shift tentacles
@@ -33,7 +33,7 @@ class Enemy:
             y -= self.SHIFT[1]
         self.position = (x, y)
         
-        if (self.hp <= 0):
+        if (self.hp < 0):
             self.alive = False
             #print('Dead')
             #print('Updating')

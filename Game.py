@@ -27,10 +27,10 @@ class Game:
 
         self.MAX_SHIP_HP = 100
         self.shipHp = 100
-        self.MAX_SHIP_POWER = 1400
-        self.ship_power = 1400
+        self.MAX_SHIP_POWER = 1000
+        self.ship_power = 1000
         self.ship_reload = 0
-        self.SHIP_MAX_PROGRESS = 1000
+        self.SHIP_MAX_PROGRESS = 2000
         self.ship_progress = 0
         self.night_opacity = self.OPACITY
 
@@ -64,9 +64,9 @@ class Game:
 
         self.addPackage("Weapon 2", "weapon", (708, 470))
         self.addPackage("Weapon", "weapon", (588, 470))
-        self.addPackage("Health 2", "health", (468, 500))
-        self.addPackage("Health", "health", (348, 500))
-        self.addPackage("Shield", "shield", (228, 500))
+        self.addPackage("Health", "health", (468, 500))
+        self.addPackage("Engine 2", "engine", (228, 500))
+        self.addPackage("Shield", "shield", (348, 500))
         self.addPackage("Engine", "engine", (108, 500))
         self.addPackage("Light", "light", (443, 375))
 
@@ -99,7 +99,7 @@ class Game:
         
         if self.day:
             if (self.ship_power < self.MAX_SHIP_POWER):
-                self.ship_power += 2
+                self.ship_power += 5
 
         for name in self.allPackages:
             self.allPackages[name].update(name)
@@ -143,16 +143,17 @@ class Game:
         for shieldName in self.allShields:
             if self.allPackages[shieldName].compartment.active:
                 self.screenShaker.shake()
-                self.allPackages[shieldName].attacked(dmg)
+                self.allPackages[shieldName].attacked(dmg* 3)
+                self.affectShipHp(-dmg/3)
                 return
 
         self.screenShaker.shake(6, 2000)
-        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
+        self.text = "Your ship is damaged! Current health left: {}".format(int(self.shipHp))
         self.messages.append(["None", "None", "Damaged", self.text])
 ##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
 ##        self.messages.append(["None", "None", "Damaged", self.text])
         #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
-        self.affectShipHp(-dmg)
+        self.affectShipHp(-dmg*2/3)
 
          
         for name in self.allPackages:

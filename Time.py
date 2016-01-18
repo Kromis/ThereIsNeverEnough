@@ -3,7 +3,7 @@ import pygame
 class Time:
 
 ##    MS_PER_MINUTE = 300
-    MS_PER_MINUTE = 0
+    MS_PER_MINUTE = 150
 
     def __init__(self, hour = 6, minute = 0):
         self.hour = hour
@@ -31,9 +31,9 @@ class Time:
         self.eventMinute = int(temp[1])
 
     def increment_minute(self):
-        self.minute += 1
+        self.minute += 5
 
-        if self.minute == 60:
+        if self.minute >= 60:
             self.minute = 0
             self.increment_hour();
 

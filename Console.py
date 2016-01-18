@@ -7,7 +7,7 @@ import resources
 class Console:
 
 	def __init__(self, screen):
-		self.font = pygame.font.Font(pygame.font.match_font('calibri'), 30)
+		self.font = pygame.font.Font(pygame.font.match_font('calibri'), 25)
 		self.screen = screen
 		self.console_img = resources.all_sprites['console.png']
 		self.message = []
@@ -32,7 +32,7 @@ class Console:
 
                         if type(self.event) == int:
                                 self.damage = self.event
-                                self.message = self.time + self.message[0] + " has attacked " + self.message[1] + " for " + str(self.event)
+                                self.message = "{} {} has attacked {} for {}".format(self.time, self.message[0], self.message[1], self.damage)
                         
                         if type(self.event) == str:
                                 if self.event == "Missed":
