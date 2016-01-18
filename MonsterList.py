@@ -53,7 +53,7 @@ class MonsterList:
 
             if enemySpawned:
                 resources.game_manager.addMessage("Enemy has appeared!")
-            self.updateTimeBetweenEncounters()
+                self.updateTimeBetweenEncounters()
         
     def attackOldestMonster(self, dmg):
         if len(self.list) > 0:
