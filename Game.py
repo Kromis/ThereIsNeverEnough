@@ -34,7 +34,7 @@ class Game:
 
         self.cannon_accuracy = 3
         
-        self.console = Console.Console(self.screen) 
+        self.console = Console.Console(self.screen)
         
         resources.time = Time()
         self.time = resources.time
@@ -81,7 +81,7 @@ class Game:
             if y > region[1][1]:
                 continue
             name = self.activeRegions[region]
-            print(name+" selected :)")
+            #print(name+" selected :)")
             self.allPackages[name].compartment.toggleSelect()
             break
             
@@ -99,7 +99,7 @@ class Game:
             if (self.ship_power < self.MAX_SHIP_POWER):
                 self.ship_power += 2
 
-        for name in self.allPackages:            
+        for name in self.allPackages:
             self.allPackages[name].update(name)
 
         self.night.set_alpha(self.night_opacity)
@@ -149,7 +149,7 @@ class Game:
         self.messages.append(["None", "None", "Damaged", self.text])
 ##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
 ##        self.messages.append(["None", "None", "Damaged", self.text])
-        print("Your ship is attacked! Current health left: {}".format(self.shipHp))
+        #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
         self.affectShipHp(-dmg)
 
          
@@ -162,7 +162,8 @@ class Game:
         self.shipHp = max(self.shipHp, 0)
         self.shipHp = min(self.MAX_SHIP_HP, self.shipHp)
         if self.shipHp <= 0:
-            print("You died")
+            pass
+            #print("You died")
 
     def cannonAttack(self, dmg):
         return self.monsterList.attackOldestMonster(dmg)

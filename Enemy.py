@@ -50,7 +50,6 @@ class Enemy:
 
     def take_damage(self, damage):
         self.hp -= damage
-        print(damage)
         self.newPos = (resources.width-(350*self.hpPercentage()), self.newPos[1])
         self.hp = max(self.hp, 0)
         if self.hp == 0:

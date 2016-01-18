@@ -19,7 +19,7 @@ class MonsterList:
     def addMonster(self, monster):
         if len(self.list) < MonsterList.MAX_MONSTERS:
             self.list.insert(0, monster)
-            print("NEW MONSTER ENCOUNTER")
+            #print("NEW MONSTER ENCOUNTER")
             #update monster positions
             for v in range(len(self.list)):
                 self.list[v].newPos = (resources.width-350, resources.height-150-(100*v))
@@ -51,11 +51,11 @@ class MonsterList:
         
     def attackOldestMonster(self, dmg):
         if len(self.list) > 0:
-            print("Attack!")
+            #print("Attack!")
             active = self.list[-1].take_damage(dmg)
             
             if not active:
-                print("Enemy died already")
+                #print("Enemy died already")
                 self.list.pop()
             return True
         return False
