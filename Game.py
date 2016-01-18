@@ -86,7 +86,13 @@ class Game:
             #print(name+" selected :)")
             self.allPackages[name].compartment.toggleSelect()
             break
-            
+    
+    def addMessage(self, customText, event=None):
+        if event != None:
+            self.messages.append(event[0], event[1], event[2], customText)
+        else:
+            self.messages.append([None, None, "Flavor", customText])
+    
     def update(self):
         self.background.update()
         self.background.draw()
@@ -127,7 +133,7 @@ class Game:
         self.allPackages["Light"].draw()
 
         if self.ship_progress == self.SHIP_MAX_PROGRESS/2:
-            self.messages.append([None, None, "Flavor", "You're halfway home... You can do this."])
+            self.addMessage("You're halfway home... You can do this.")
         
         if self.ship_power >= self.MAX_SHIP_POWER/2 -5 and self.ship_power <= self.MAX_SHIP_POWER/2 + 5:
             self.messages.append([None, None, "Flavor", "Your power is getting low. Be careful!"])
@@ -159,19 +165,14 @@ class Game:
                         self.allPackages[comp].compartment.currentlyDisabled = True
                         comp_type = self.allPackages[comp].compartment.compType
                         first_letter = comp_type[0].upper()
-                        self.messages.append([None, None, "Flavor", first_letter + comp_type[1:] + " has been disabled."])
+                        self.addMessage(first_letter + comp_type[1:] + " has been disabled.")
                 return
 
         self.screenShaker.shake(6, 2000)
+
         if self.shipHp < self.MAX_SHIP_HP/2:
-            self.text = "Your ship is in critical health."
-            self.messages.append(["None", "None", "Damaged", self.text])
+            self.addMessage("Your ship is in critical health.")
 
-
-
-##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
-##        self.messages.append(["None", "None", "Damaged", self.text])
-        #print("Your ship is attacked! Current health left: {}".format(self.shipHp))
         self.affectShipHp(-dmg * 2)
 
          
@@ -184,7 +185,8 @@ class Game:
                 self.allPackages[comp].compartment.currentlyDisabled = True
                 comp_type = self.allPackages[comp].compartment.compType
                 first_letter = comp_type[0].upper()
-                self.messages.append([None, None, "Flavor", first_letter + comp_type[1:] + " has been disabled."])
+
+                self.addMessage(first_letter + comp_type[1:] + " has been disabled.")
                 
     def affectShipHp(self, value):
         self.shipHp += value
