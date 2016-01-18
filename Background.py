@@ -110,13 +110,13 @@ class Background:
         self.screen.blit(self.status_red, (110, 50 + 100))
         self.screen.blit(self.status_green, (110, 50 + 100), (0, 0, 200*resources.game_manager.shipHp/resources.game_manager.MAX_SHIP_HP, 20))
         self.screen.blit(self.sidebar_border, (110, 50 + 100))
-        self.draw_status_bar_text('Health', '{}/{}'.format(resources.game_manager.shipHp, resources.game_manager.MAX_SHIP_HP), (110, 10 + 100)) 
+        self.draw_status_bar_text('Health', '{}/{}'.format(int(resources.game_manager.shipHp), resources.game_manager.MAX_SHIP_HP), (110, 10 + 100)) 
 
 
         self.screen.blit(self.status_red, (110, 50 + 200))
         self.screen.blit(self.status_green, (110, 50 + 200), (0, 0, 200*resources.game_manager.ship_power/resources.game_manager.MAX_SHIP_POWER, 20))
         self.screen.blit(self.sidebar_border, (110, 50 + 200))        
-        self.draw_status_bar_text('Power', '{}/{}'.format(resources.game_manager.ship_power, resources.game_manager.MAX_SHIP_POWER), (110, 10 + 200)) 
+        self.draw_status_bar_text('Power', '{}/{}'.format(int(resources.game_manager.ship_power), resources.game_manager.MAX_SHIP_POWER), (110, 10 + 200)) 
 
 
         self.screen.blit(self.status_red, (110, 50 + 300))
