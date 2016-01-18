@@ -10,6 +10,8 @@ class Compartment:
         self.active = True
         self.MAX_HP = maxHp
         self.MIN_HP = minHp
+        self.MIN_DMG = 20
+        self.MAX_DMG = 30
         self.REPAIRED_HP = repairedHp
         self.RESTORE_SHIP_HP = 10
         self.hp = self.MAX_HP
@@ -63,8 +65,11 @@ class Compartment:
             self.deselect()
     
         if self.selected:
-            if resources.game_manager.ship_power >= 1:
-                resources.game_manager.ship_power -= 1
+            if resources.game_manager.ship_power >= 0:
+                if self.compType == "light":
+                    resources.game_manager.ship_power -= .5
+                else:
+                    resources.game_manager.ship_power -= 1
         self.drain()
         self.power()
         self.cannonCooldown += 1
@@ -84,22 +89,22 @@ class Compartment:
         if len(resources.game_manager.monsterList.list) > 0:
             
             if resources.game_manager.ship_reload >= 100:
-                dmg = random.randint(20, 30)
+                dmg = random.randint(self.MIN_DMG, self.MAX_DMG)
                 resources.sound_manager.playSound('cannon.ogg')
                 resources.game_manager.ship_reload = 0
 
                 
-                if random.randint(1, 10) > resources.game_manager.cannon_accuracy:
-                    resources.game_manager.cannonAttack(dmg)
+                #if random.randint(1, 10) > resources.game_manager.cannon_accuracy:
+                resources.game_manager.cannonAttack(dmg)
                 
     def use_light(self):
         if self.selected:
             resources.game_manager.night_opacity = 100
-            resources.game_manager.cannon_accuracy = 1
+            #resources.game_manager.cannon_accuracy = 1
 
         else:
-            resources.game_manager.night_opacity = 200
-            resources.game_manager.cannon_accuracy = 3
+            resources.game_manager.night_opacity = resources.game_manager.OPACITY    
+            #resources.game_manager.cannon_accuracy = 3
 
     def typeEngineUse(self):
         if self.active:

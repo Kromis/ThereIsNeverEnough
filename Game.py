@@ -17,6 +17,8 @@ class Game:
         self.background = Background(self.screen)
         self.screenShaker = ScreenShaker()
         
+        self.OPACITY = 250
+        
         self.activeRegions = {}
         self.allPackages = {}
         self.allPackageNames = []
@@ -28,11 +30,11 @@ class Game:
         self.MAX_SHIP_POWER = 1400
         self.ship_power = 1400
         self.ship_reload = 0
-        self.SHIP_MAX_PROGRESS = 500
+        self.SHIP_MAX_PROGRESS = 1000
         self.ship_progress = 0
-        self.night_opacity = 200
+        self.night_opacity = self.OPACITY
 
-        self.cannon_accuracy = 3
+        #self.cannon_accuracy = 3
         
         self.console = Console.Console(self.screen)
         
@@ -128,11 +130,11 @@ class Game:
 
     def toggleDay(self):
         self.day = not self.day
-        if self.day:
-            self.cannon_accuracy = 1
-        else:
-            self.cannon_accuracy = 3
-        print("DAY" if self.day else "NIGHT")
+        #if self.day:
+         #   self.cannon_accuracy = 1
+        #else:
+        #    self.cannon_accuracy = 3
+        #print("DAY" if self.day else "NIGHT")
 
 
     def enemyAttack(self, dmg):

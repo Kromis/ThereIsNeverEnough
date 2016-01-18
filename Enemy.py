@@ -2,7 +2,7 @@ import random
 import resources
 
 class Enemy:
-    DEFAULT_HEALTH = 300
+    DEFAULT_HEALTH = 100
     DEFAULT_DAMAGE = 20
     
     def __init__(self, delay=20):
@@ -14,6 +14,8 @@ class Enemy:
         self.delayCounter = 0
         self.type = ''
         self.alive = True
+        self.MIN_DMG = 5
+        self.MAX_DMG = 8
 
         self.screen = resources.screen
         self.sprite = resources.all_sprites["tentacle.png"]
@@ -43,13 +45,12 @@ class Enemy:
 
     def draw(self):
         if not resources.game_manager.day:
-            print(resources.game_manager.allPackages["Light"].selected)
             if resources.game_manager.allPackages["Light"].compartment.selected:
                 resources.screen_copied.blit(resources.all_sprites["glow.png"], (self.position[0], self.position[1] - 100))
         resources.screen_copied.blit(self.sprite, self.position)
         
     def attack(self):
-        damage = random.randint(10, 15)
+        damage = random.randint(self.MIN_DMG, self.MAX_DMG)
         return damage
 
     def take_damage(self, damage):
