@@ -25,10 +25,10 @@ class Game:
         self.allShields = []
         self.messages = []
 
-        self.MAX_SHIP_HP = 100
-        self.shipHp = 100
-        self.MAX_SHIP_POWER = 1000
-        self.ship_power = 1000
+        self.MAX_SHIP_HP = 12345678
+        self.shipHp = 12345678
+        self.MAX_SHIP_POWER = 12345678
+        self.ship_power = 12345678
         self.ship_reload = 0
         self.SHIP_MAX_PROGRESS = 2000
         self.ship_progress = 0
@@ -65,8 +65,8 @@ class Game:
         self.addPackage("Weapon 2", "weapon", (708, 470))
         self.addPackage("Weapon", "weapon", (588, 470))
         self.addPackage("Health", "health", (468, 500))
-        self.addPackage("Shield 2", "shield", (228, 500))
-        self.addPackage("Shield", "shield", (348, 500))
+        self.addPackage("we", "weapon", (228, 500))
+        self.addPackage("weer", "weapon", (348, 500))
         self.addPackage("Engine", "engine", (108, 500))
         self.addPackage("Light", "light", (443, 375))
 
@@ -86,7 +86,13 @@ class Game:
             #print(name+" selected :)")
             self.allPackages[name].compartment.toggleSelect()
             break
-            
+    
+    def addMessage(self, customText, event=None):
+        if event != None:
+            self.messages.append(event[0], event[1], event[2], customText)
+        else:
+            self.messages.append([None, None, "Flavor", customText])
+    
     def update(self):
         self.background.update()
         self.background.draw()
@@ -149,7 +155,7 @@ class Game:
 
         self.screenShaker.shake(6, 2000)
         self.text = "Your ship is damaged! Current health left: {}".format(int(self.shipHp))
-        self.messages.append(["None", "None", "Damaged", self.text])
+        self.addMessage(self.text, ("None", "None", "Damaged"))
 ##        self.text = "Your ship is damaged! Current health left: {}".format(self.shipHp)
 ##        self.messages.append(["None", "None", "Damaged", self.text])
         #print("Your ship is attacked! Current health left: {}".format(self.shipHp))

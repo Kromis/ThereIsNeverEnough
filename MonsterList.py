@@ -5,8 +5,8 @@ import resources
 
 class MonsterList:
 
-    AVG_ENCOUNTER_TIME = 10000 #10 seconds
-    ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
+    AVG_ENCOUNTER_TIME = 1000 #10 seconds
+    ENCOUNTER_TIME_VARIANCE = 0  #+/- 5 seconds
 
     MAX_MONSTERS = 2
 
@@ -51,7 +51,7 @@ class MonsterList:
             self.previousTime = now
             enemySpawned = self.addMonster(Enemy())
             if enemySpawned:
-                resources.game_manager.messages.append([None, None, "Flavor", "Enemy has appeared!"])
+                resources.game_manager.addMessage("Enemy has appeared!")
             self.updateTimeBetweenEncounters()
         
     def attackOldestMonster(self, dmg):
