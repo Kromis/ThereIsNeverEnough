@@ -15,6 +15,7 @@ class GoingHome:
             image.convert_alpha()
         
     def game_loop(self):
+        clickRect = pygame.Rect(400, 250, 400, 400)
         while resources.main_loop_running:
             mouse_pressed = False
             
@@ -29,7 +30,7 @@ class GoingHome:
                     ##                        print(str(pygame.mouse.get_pos()[0]) + ", " + str(pygame.mouse.get_pos()[1]))                    
 
             if resources.state == "START":
-                if mouse_pressed:
+                if mouse_pressed and clickRect.collidepoint(pygame.mouse.get_pos()):
                     resources.state = "GAME"
                     resources.game_manager.reset()
 
@@ -43,7 +44,7 @@ class GoingHome:
                 resources.game_manager.update()
 
             elif resources.state == "LOSE":
-                if mouse_pressed:
+                if mouse_pressed and clickRect.collidepoint(pygame.mouse.get_pos()):
                     resources.state = "START"
 
                 gameOver = resources.all_sprites["gameOver.png"]
@@ -51,7 +52,7 @@ class GoingHome:
                 pass
 
             elif resources.state == "WIN":
-                if mouse_pressed:
+                if mouse_pressed and clickRect.collidepoint(pygame.mouse.get_pos()):
                     resources.state = "START"
 
                 win = resources.all_sprites["win.png"]
