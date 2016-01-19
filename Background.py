@@ -32,12 +32,12 @@ class Background:
         self.house = resources.all_sprites["house.png"]
         
         self.font_size = 70
-        self.font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.font_size)
+        self.font = pygame.font.SysFont('cooperblack', self.font_size)
         
         self.status_bar_font_size = 30
-        self.status_bar_font = pygame.font.Font(pygame.font.match_font('cooperblack'), self.status_bar_font_size)
+        self.status_bar_font = pygame.font.SysFont('cooperblack', self.status_bar_font_size)
         self.status_bar_font_size_small = 20
-        self.status_bar_font_small = pygame.font.Font(pygame.font.match_font('cooperblack'), self.status_bar_font_size_small)
+        self.status_bar_font_small = pygame.font.SysFont('cooperblack', self.status_bar_font_size_small)
 
         
         

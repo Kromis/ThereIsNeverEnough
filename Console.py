@@ -7,7 +7,7 @@ import resources
 class Console:
   
   def __init__(self, screen):
-    self.font = pygame.font.Font(pygame.font.match_font('calibri'), 30)
+    self.font = pygame.font.SysFont('calibri', 30)
     self.screen = screen
     self.console_img = resources.all_sprites['console.png']
     self.message_list = []

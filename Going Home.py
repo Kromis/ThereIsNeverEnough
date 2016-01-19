@@ -10,7 +10,7 @@ class GoingHome:
     def __init__(self):
         self.width = resources.width
         self.height = resources.height
-        #self.clock = pygame.Clock(64)
+        self.clock = pygame.time.Clock()
 
         for image in resources.all_sprites.values():
             image.convert_alpha()
@@ -68,6 +68,8 @@ class GoingHome:
                 resources.screen.blit(win, (0,0))
 
             pygame.display.update()
+            self.clock.tick_busy_loop(10)
+            
         pygame.quit()
 
 if __name__ == "__main__":

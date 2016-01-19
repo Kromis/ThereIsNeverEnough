@@ -5,7 +5,7 @@ import resources
 
 class MonsterList:
 
-    AVG_ENCOUNTER_TIME = 10000 #10 seconds
+    AVG_ENCOUNTER_TIME = 12000 #10 seconds
     ENCOUNTER_TIME_VARIANCE = 5000  #+/- 5 seconds
 
     MAX_MONSTERS = 2
