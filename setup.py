@@ -1,8 +1,10 @@
+import sys
 from cx_Freeze import setup, Executable
 
 
 
 setup(name = 'Going Home', 
-      version='4.2.0.', 
+      version='1.0.', 
       description='Get Home',
-      executables = [Executable(script = 'Going Home.py', base='Win32GUI')])
+      options = {'build_exe': {'include_files': ['freesansbold.ttf']}
+      executables = [Executable(script = 'Going Home.py')])

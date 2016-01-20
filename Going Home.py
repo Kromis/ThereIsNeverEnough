@@ -68,7 +68,7 @@ class GoingHome:
                 resources.screen.blit(win, (0,0))
 
             pygame.display.update()
-            self.clock.tick_busy_loop(10)
+            self.clock.tick_busy_loop(30)
             
         pygame.quit()
 
